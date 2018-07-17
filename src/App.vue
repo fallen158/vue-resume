@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <Silebar/>
+    <Resume/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
+import Silebar from './components/Silebar'
+import Resume from './components/Resume'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Silebar,Resume
   }
 }
+
+
 </script>
 
-<style>
+<style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100vh;
+  border: 1px solid #333;
+  display: flex;
+  .resume{
+    flex:1;
+  }
 }
 </style>
