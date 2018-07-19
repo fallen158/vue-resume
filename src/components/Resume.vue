@@ -2,7 +2,7 @@
     <div class="resume">
        <nav class="navigation">
            <div class="logo">
-               <h3>resume</h3>
+               <h3>{{logo}}</h3>
            </div>
            <ul class="topbar clearfix">
                <li>关于</li>
@@ -20,20 +20,20 @@
             </div>
             <address class="IntroMessage">
                 <div class="Profile clearfix">
-                    <h1>刘文超</h1>
-                    <p>前端开发工程师</p>
+                    <h1><Eventable :value="resume.name" @edit="onEdit('name',$event)"/></h1>
+                    <p><Eventable :value="resume.jobTitle" @edit="onEdit('jobTitle',$event)"/></p>
                     <hr>
                     <dl>
                         <dt>年龄</dt>
-                        <dd>21</dd>
+                        <dd><Eventable :value="resume.age" @edit="onEdit('age',$event)"/></dd>
                         <dt>学历</dt>
-                        <dd>高中</dd>
+                        <dd><Eventable :value="resume.Education" @edit="onEdit('Education',$event)"/></dd>
                         <dt>所在城市</dt>
-                        <dd>深圳</dd>
+                        <dd><Eventable :value="resume.city" @edit="onEdit('city',$event)"/></dd>
                         <dt>邮箱</dt>
-                        <dd>79334424@qq.com</dd>
+                        <dd><Eventable :value="resume.email" @edit="onEdit('email',$event)"/></dd>
                         <dt>手机</dt>
-                        <dd>13717022872</dd>
+                        <dd><Eventable :value="resume.phone" @edit="onEdit('phone',$event)"/></dd>
                     </dl>
                 </div>
             </address>
@@ -42,7 +42,36 @@
 </template>
 
 <script>
-export default {};
+import Eventable from './Eventable'
+
+export default {
+    name: 'Resume',
+    components:{
+        Eventable
+    },
+    data(){
+        return{
+            logo: 're',
+            editingName: false,
+            resume:{
+                name:'刘文超',
+                jobTitle:'前端开发工程师',
+                age:21,
+                Education:'高中',
+                city:'深圳',
+                email:'79334424@qq.com',
+                phone:13717022872
+            },
+            message:'1'
+        }
+    },
+    methods:{
+        onEdit(key,value){
+            this.resume[key] = value
+            console.log(key)
+        }
+    }
+};
 </script>
 
 
@@ -78,7 +107,8 @@ export default {};
       .wraperImge {
         width: 200px;
         height: 200px;
-        border: 1px solid;
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -108,3 +138,5 @@ export default {};
   }
 }
 </style>
+
+

@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 .silebar {
- border-right:1px solid #999 ;
+ border-right:1px solid  #999;
   width: 100px;
   display: flex;
   flex-direction: column;
