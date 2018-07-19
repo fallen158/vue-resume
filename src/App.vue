@@ -21,7 +21,6 @@ export default {
 <style lang="scss">
 #app {
   height: 100vh;
-  border: 1px solid #333;
   display: flex;
   .resume{
     flex:1;
