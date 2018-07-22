@@ -1,16 +1,16 @@
 <template>
     <aside class="silebar">
         <div class="uper">
-            <el-button size="small" class="save">保存简历</el-button>
-            <el-button size="small">登录账户</el-button>
-            <el-button size="small">注册账户</el-button>
-            <el-button size="small">分享简历</el-button>
-            <el-button size="small">打印简历</el-button>
-            <el-button size="small">风格设置</el-button>
-            <el-button size="small">自动简历</el-button>
+            <button>保存简历</button>
+            <router-link to="/login"><button>登录账户</button></router-link>
+            <router-link to="/singUp"><button>注册账户</button></router-link>
+            <button>分享简历</button>
+            <button>打印简历</button>
+            <button>风格设置</button>
+            <button>自动简历</button>
         </div>
         <div class="down">
-            <el-button type="warning" size="small" class="save">登出账户</el-button>
+            <button class="warning"> 登出账户</button>
         </div>
     </aside>
 </template>
@@ -25,24 +25,39 @@ export default {
 
 <style lang="scss" scoped>
 .silebar {
- border-right:1px solid  #999;
+  border-right: 1px solid #999;
   width: 100px;
+  min-width: 100px;
   display: flex;
   flex-direction: column;
-  .el-button:nth-child(1){
-      margin-top: 10px;
+  .uper {
+    button {
+      padding: 9px 15px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      border: 1px solid #dcdfe6;
+      color: #606266;
+      text-align: center;
+      margin: 10px 10px ;
+    }
   }
-  .el-button{
-     margin-top: 16px; 
-  }
-  .save{
-      margin-left: 10px;
-  }
-  .down{
-    flex:1;
+  .down {
+    flex: 1;
     display: flex;
     align-items: flex-end;
     margin-bottom: 16px;
+    .warning {
+      color: #fff;
+      background-color: #e6a23c;
+      border-color: #e6a23c;
+      line-height: 1;
+      border-radius: 3px;
+      font-size: 12px;
+      padding: 9px 15px;
+      margin-left: 10px;
+    }
   }
 }
 </style>

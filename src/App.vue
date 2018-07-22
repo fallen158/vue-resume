@@ -2,6 +2,7 @@
   <div id="app">
     <Silebar/>
     <Resume/>
+    <router-view></router-view>
   </div>
 </template>
 
