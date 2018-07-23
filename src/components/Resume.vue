@@ -37,40 +37,49 @@
                     </dl>
                 </div>
             </address>
-        </div>    
+        </div> 
+        <ResumeSkill/>
+        <ResumeWorks/>
+        <ResumeComments/>
     </div>
 </template>
 
 <script>
-import Eventable from './Eventable'
+import Eventable from "./Eventable";
+import ResumeSkill from "./Resume_skill";
+import ResumeWorks from "./Resume_works";
+import ResumeComments from "./Resume_comments";
 
 export default {
-    name: 'Resume',
-    components:{
-        Eventable
-    },
-    data(){
-        return{
-            logo: 're',
-            editingName: false,
-            resume:{
-                name:'刘文超',
-                jobTitle:'前端开发工程师',
-                age:21,
-                Education:'高中',
-                city:'深圳',
-                email:'79334424@qq.com',
-                phone:13717022872
-            },
-            message:'1'
-        }
-    },
-    methods:{
-        onEdit(key,value){
-            this.resume[key] = value
-            console.log(key)
-        }
+  name: "Resume",
+  components: {
+    Eventable,
+    ResumeSkill,
+    ResumeWorks,
+    ResumeComments
+  },
+  data() {
+    return {
+      logo: "re",
+      editingName: false,
+      resume: {
+        name: "刘文超",
+        jobTitle: "前端开发工程师",
+        age: 21,
+        Education: "高中",
+        city: "深圳",
+        email: "79334424@qq.com",
+        phone: 13717022872
+      },
+      message: "1"
+    };
+  },
+  methods: {
+    onEdit(key, value) {
+      this.resume[key] = value;
+      console.log(key);
     }
+  }
 };
 </script>
 
@@ -127,11 +136,12 @@ export default {
           margin-top: 10px;
         }
 
-        dl,dd {
+        dl,
+        dd {
           float: left;
           width: 70%;
-          color:black;
-           margin-top: 10px;
+          color: black;
+          margin-top: 10px;
         }
       }
     }

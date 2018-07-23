@@ -2,8 +2,8 @@
     <aside class="silebar">
         <div class="uper">
             <button>保存简历</button>
-            <router-link to="/login"><button>登录账户</button></router-link>
-            <router-link to="/singUp"><button>注册账户</button></router-link>
+            <button>登录账户</button>
+            <button>注册账户</button>
             <button>分享简历</button>
             <button>打印简历</button>
             <button>风格设置</button>
