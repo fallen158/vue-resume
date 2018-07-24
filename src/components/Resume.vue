@@ -1,6 +1,6 @@
 <template>
     <div class="resume">
-       <nav class="navigation">
+        <nav class="navigation">
            <div class="logo">
                <h3>{{logo}}</h3>
            </div>
@@ -11,8 +11,10 @@
                <li>博客</li>
                <li>联系</li>
            </ul>
-       </nav>
-       <div class="Introduction">
+        </nav>
+        <div class="IntroContet">
+          <h1>关于我</h1>
+          <div class="Introduction">
             <div class="IntroWraper">   
                 <div class="wraperImge">
                     上传头像
@@ -30,14 +32,15 @@
                         <dd><Eventable :value="resume.Education" @edit="onEdit('Education',$event)"/></dd>
                         <dt>所在城市</dt>
                         <dd><Eventable :value="resume.city" @edit="onEdit('city',$event)"/></dd>
-                        <dt>邮箱</dt>
-                        <dd><Eventable :value="resume.email" @edit="onEdit('email',$event)"/></dd>
-                        <dt>手机</dt>
-                        <dd><Eventable :value="resume.phone" @edit="onEdit('phone',$event)"/></dd>
+                        <dt>爱好</dt>
+                        <dd><Eventable :value="resume.Hobby" @edit="onEdit('Hobby',$event)"/></dd>
+                        <dt>梦想</dt>
+                        <dd><Eventable :value="resume.dream" @edit="onEdit('dream',$event)"/></dd>
                     </dl>
                 </div>
             </address>
         </div> 
+       </div>
         <ResumeSkill/>
         <ResumeWorks/>
         <ResumeComments/>
@@ -68,8 +71,8 @@ export default {
         age: 21,
         Education: "高中",
         city: "深圳",
-        email: "79334424@qq.com",
-        phone: 13717022872
+        Hobby: "旅游",
+        dream: '全栈工程师'
       },
       message: "1"
     };

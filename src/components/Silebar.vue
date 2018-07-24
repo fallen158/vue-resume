@@ -30,6 +30,7 @@ export default {
   min-width: 100px;
   display: flex;
   flex-direction: column;
+  height: 100vh;
   .uper {
     button {
       padding: 9px 15px;

@@ -6,6 +6,7 @@ import router from './router'
 
 
 import './assets/reset.css'
+import './assets/av.js'
 import 'normalize.css'
 
 import ElementUI from 'element-ui';
