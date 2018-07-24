@@ -41,25 +41,25 @@
             </address>
         </div> 
        </div>
-        <ResumeSkill/>
-        <ResumeWorks/>
-        <ResumeComments/>
+        <Skills/>
+        <Works/>
+        <Comments/>
     </div>
 </template>
 
 <script>
 import Eventable from "./Eventable";
-import ResumeSkill from "./Resume_skill";
-import ResumeWorks from "./Resume_works";
-import ResumeComments from "./Resume_comments";
+import Skills from "./Skills";
+import Works from "./Works";
+import Comments from "./Comments";
 
 export default {
   name: "Resume",
   components: {
     Eventable,
-    ResumeSkill,
-    ResumeWorks,
-    ResumeComments
+    Skills,
+    Works,
+    Comments
   },
   data() {
     return {
@@ -72,7 +72,7 @@ export default {
         Education: "高中",
         city: "深圳",
         Hobby: "旅游",
-        dream: '全栈工程师'
+        dream: "全栈工程师"
       },
       message: "1"
     };

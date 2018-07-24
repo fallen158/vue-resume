@@ -4,11 +4,11 @@
         <div class="comment_content">
             <div class="messages">
                 <h3>FELL FREE TO WRITE US</h3>
-                <form>
+                <form @submit.prevent="onMessage">
                     <label>
-                        <input type="text" placeholder="E-mail">
-                        <input type="text" placeholder="Phone">
-                        <textarea name="" id="" placeholder="Message"></textarea>
+                        <input type="text" placeholder="E-mail" v-model="messages.Email">
+                        <input type="text" placeholder="Phone" v-model="messages.Phone">
+                        <textarea name="" id="" placeholder="Message" v-model="messages.content"></textarea>
                     </label>
                     <button type="submit">SEND</button>
                 </form>
@@ -34,10 +34,15 @@ export default {
   name: "Resume_comments",
   data() {
     return {
+      messages: {
+        Email: "",
+        Phone: "",
+        content: ""
+      },
       information: {
         email: "79334424@qq.com",
         qq: 79334424,
-        github: 'www.github.fallen158',
+        github: "www.github.fallen158",
         wechat: 13717022872,
         Blog: "myBlog"
       }
@@ -46,6 +51,25 @@ export default {
   methods: {
     onEdit(key, value) {
       this.information[key] = value;
+    },
+    onMessage() {
+      var Todo = AV.Object.extend("Todo");
+      var todo = new Todo();
+      todo.save({
+        email: this.messages.Email,
+        phone: this.messages.Phone,
+        message: this.messages.content
+      }).then(
+          (todo)=>{
+          this.messages.Email = '';
+          this.messages.Phone = ''
+          this.messages.content = ''
+          alert('保存成功');
+        },
+        function(error) {
+          console.log(error)
+        }
+      );
     }
   },
   components: {
@@ -115,7 +139,7 @@ export default {
         margin-top: 30px;
         li {
           margin-top: 10px;
-          span{
+          span {
             margin-left: 5px;
           }
         }
