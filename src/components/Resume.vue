@@ -1,5 +1,7 @@
 <template>
-    <div class="resume">
+    <div class="app_content">
+      <silebar/>
+      <div class="resume">
         <nav class="navigation">
            <div class="logo">
                <h3>{{logo}}</h3>
@@ -39,15 +41,17 @@
                     </dl>
                 </div>
             </address>
-        </div> 
-       </div>
+          </div> 
+        </div>
         <Skills/>
         <Works/>
         <Comments/>
+      </div>
     </div>
 </template>
 
 <script>
+import Silebar from "./Silebar"
 import Eventable from "./Eventable";
 import Skills from "./Skills";
 import Works from "./Works";
@@ -59,7 +63,8 @@ export default {
     Eventable,
     Skills,
     Works,
-    Comments
+    Comments,
+    Silebar
   },
   data() {
     return {

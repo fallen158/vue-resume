@@ -2,12 +2,18 @@
     <aside class="silebar">
         <div class="uper">
             <button>保存简历</button>
-            <button>登录账户</button>
-            <button>注册账户</button>
+            <router-link to="/login">
+              <button>登录账户</button>
+            </router-link>
+            <router-link to="/singup">
+              <button>注册账户</button>
+            </router-link>
             <button>分享简历</button>
             <button>打印简历</button>
             <button>风格设置</button>
-            <button>自动简历</button>
+            <router-link to="/automtic">
+              <button>自动简历</button>
+            </router-link>
         </div>
         <div class="down">
             <button class="warning"> 登出账户</button>
@@ -41,7 +47,7 @@ export default {
       border: 1px solid #dcdfe6;
       color: #606266;
       text-align: center;
-      margin: 10px 10px ;
+      margin: 10px 10px;
     }
   }
   .down {

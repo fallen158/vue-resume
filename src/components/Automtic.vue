@@ -1,5 +1,6 @@
 <template>
-    <div class="singUp"> 
+    <div class="automtic">
+        <h1>自动简历模块</h1>
     </div>
 </template>
 
