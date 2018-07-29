@@ -36,7 +36,6 @@ export default {
   min-width: 100px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   .uper {
     button {
       padding: 9px 15px;
@@ -51,9 +50,8 @@ export default {
     }
   }
   .down {
-    flex: 1;
-    display: flex;
-    align-items: flex-end;
+    position: absolute;
+    bottom: 0;
     margin-bottom: 16px;
     .warning {
       color: #fff;

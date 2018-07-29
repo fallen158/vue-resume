@@ -99,6 +99,8 @@ export default {
   clear: both;
 }
 .resume {
+  height: 100vh;
+  overflow: auto;
   .navigation {
     display: flex;
     justify-content: space-between;
