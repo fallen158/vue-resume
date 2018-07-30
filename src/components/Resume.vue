@@ -24,19 +24,18 @@
             </div>
             <address class="IntroMessage">
                 <div class="Profile clearfix">
-                    <h1><Eventable :value="resume.name" @edit="onEdit('name',$event)"/></h1>
-                    <p><Eventable :value="resume.jobTitle" @edit="onEdit('jobTitle',$event)"/></p>
-                    <hr>
                     <dl>
-                        <dt>年龄</dt>
+                        <dt>姓名 :</dt>
+                        <dd><Eventable :value="resume.name" @edit="onEdit('name',$event)"/></dd>
+                        <dt>年龄 :</dt>
                         <dd><Eventable :value="resume.age" @edit="onEdit('age',$event)"/></dd>
-                        <dt>学历</dt>
+                        <dt>学历 :</dt>
                         <dd><Eventable :value="resume.Education" @edit="onEdit('Education',$event)"/></dd>
-                        <dt>所在城市</dt>
+                        <dt>所在城市 :</dt>
                         <dd><Eventable :value="resume.city" @edit="onEdit('city',$event)"/></dd>
-                        <dt>爱好</dt>
+                        <dt>爱好 :</dt>
                         <dd><Eventable :value="resume.Hobby" @edit="onEdit('Hobby',$event)"/></dd>
-                        <dt>梦想</dt>
+                        <dt>应聘职位 :</dt>
                         <dd><Eventable :value="resume.dream" @edit="onEdit('dream',$event)"/></dd>
                     </dl>
                 </div>
@@ -44,14 +43,14 @@
           </div> 
         </div>
         <Skills/>
-        <Works/>
-        <Comments/>
+        <Works :information="resume"/>
+        <Comments :contact="resume.information"/>
       </div>
     </div>
 </template>
 
 <script>
-import Silebar from "./Silebar"
+import Silebar from "./Silebar";
 import Eventable from "./Eventable";
 import Skills from "./Skills";
 import Works from "./Works";
@@ -77,7 +76,50 @@ export default {
         Education: "高中",
         city: "深圳",
         Hobby: "旅游",
-        dream: "全栈工程师"
+        dream: "全栈工程师",
+        works: [
+          { name: "项目名称" },
+          { name: "项目名称" },
+          { name: "项目名称" },
+          { name: "项目名称" }
+        ],
+        projects: [
+          {
+            name: "项目名称",
+            description: "项目简介",
+            link: "htttps://",
+            url: "https://",
+            avatar: "头像"
+          },
+          {
+            name: "项目名称",
+            description: "项目简介",
+            link: "htttps://",
+            url: "https://",
+            avatar: "头像"
+          },
+          {
+            name: "项目名称",
+            description: "项目简介",
+            link: "htttps://",
+            url: "https://",
+            avatar: "头像"
+          },
+          {
+            name: "项目名称",
+            description: "项目简介",
+            link: "htttps://",
+            url: "https://",
+            avatar: "头像"
+          }
+        ],
+        information: {
+          email: "79334424@qq.com",
+          qq: 79334424,
+          github: "www.github.fallen158",
+          wechat: 13717022872,
+          Blog: "myBlog"
+        }
       },
       message: "1"
     };
@@ -115,17 +157,22 @@ export default {
       }
     }
   }
+  h1 {
+    text-align: center;
+  }
   .Introduction {
-    border: 1px solid;
     width: 800px;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     .IntroWraper {
       padding: 30px;
       .wraperImge {
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
+        max-width: 400px;
+        max-height: 400px;
         border: 1px dashed #d9d9d9;
         border-radius: 6px;
         display: flex;
@@ -137,13 +184,14 @@ export default {
       flex: 1;
       padding: 20px;
       .Profile {
+        margin-top: -10px;
         dl,
         dt {
           float: left;
           width: 30%;
           color: grey;
           font-size: 16px;
-          margin-top: 10px;
+          margin-top: 25px;
         }
 
         dl,
@@ -151,7 +199,7 @@ export default {
           float: left;
           width: 70%;
           color: black;
-          margin-top: 10px;
+          margin-top: 25px;
         }
       }
     }

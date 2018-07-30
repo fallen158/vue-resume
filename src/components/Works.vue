@@ -3,39 +3,45 @@
         <h1>作品展示</h1>
         <div class="project">
             <ul class="tab">
-                <li v-for="tab,index in tabs" :class="{active:currenTtab === index}" @click="onTab(index)">
-                    {{tab}}
-                    <div @click="editTab" class="editTab" v-if="index>3">x</div>
+                <li v-for="tab,index in information.works" :class="{active:currenTtab === index}" @click="onTab(index)">
+                   <Eventable :value="tab.name" @edit="onEdit('works['+index+'].name',$event)"/>
+                    <div @click="removeTab" class="editTab" v-if="index>3">x</div>
                 </li>
                 <li @click="addTab">+</li>
             </ul>
-            <div class="content" v-for="item,index in myWorks" v-show="index === currenTtab">
-                <div class="left">                           
-                    <h3>{{item}}</h3>
-                    <p>简介使用ES6 class 语法，面向对象编程，利用 ajax 向豆瓣 api 发送请求，然后拿到 json 数据进行 html 拼接，并渲染到页面。使用 css3的 vw 跟 vh 属性适配移动端各种大小屏幕 此项目适配移动端，请用微信扫下面二维码。（鼠标移动在“传送链接”会</p>
-                    <p>源码: </p>
-                    <p>预览链接: </p>
-                </div>
-                <div class="right">
-                    上传图像
-                </div>
-            </div>
+            <ul>
+              <li class="content" v-for="item,index in information.projects" v-show="index === currenTtab">
+                  <div class="left">
+                      <h2>
+                        <Eventable :value="item.name" @edit="onEdit('projects['+index+'].name',$event)"></Eventable>
+                      </h2>
+                      <p class="item_description">
+                        <Eventable :value="item.description" @edit="onEdit('projects['+index+'].description',$event)"></Eventable>
+                      </p>
+                      <p>
+                        源码链接: <Eventable :value="item.link" @edit="onEdit('projects['+index+'].link',$event)" class="item_link"></Eventable> 
+                      </p>
+                      <p>
+                        预览链接: <Eventable :value="item.url" @edit="onEdit('projects['+index+'].url',$event)" class="item_link"></Eventable>
+                      </p>
+                  </div>
+                  <div class="right">
+                    {{item.avatar}}
+                  </div>
+              </li>
+            </ul>
         </div>
     </div>
 </template>
 
 
 <script>
-import Eventable from './Eventable'
+import Eventable from "./Eventable";
 export default {
   name: "Works",
-  components:{
-      Eventable
-  },
+  props: ["information"],
   data() {
     return {
-      tabs: ["QQ音乐", "名称", "名称", "名称"],
-      myWorks: ["项目名称1", "项目名称2", "项目名称", "项目名称"],
       currenTtab: 0
     };
   },
@@ -44,20 +50,41 @@ export default {
       this.currenTtab = index;
     },
     addTab() {
-      if (this.tabs.length < 8) {
-        this.tabs.push("名称");
-        this.myWorks.push("项目名称");
-      } else {
-        alert("不好意思，目前最多支持8个技能");
+      this.information.works.push({ name: "项目名称" });
+      this.information.projects.push({
+        name: "项目名称",
+        description: "项目简介",
+        link: "htttps://",
+        url: "https://",
+        avatar: "头像"
+      });
+    },
+    removeTab() {
+      this.information.works.pop();
+      this.information.projects.pop();
+    },
+    onEdit(key, value) {
+      console.log(key, value);
+      let reg = /\[(\d+)\]/g;
+      key = key.replace(reg, (match, number) => {
+        return "." + number;
+      });
+      console.log(key);
+      let keys = key.split(".");
+      console.log(keys);
+      let result = this.information;
+      console.log(result);
+      for (let i = 0; i < keys.length; i++) {
+        if (i === keys.length - 1) {
+          result[keys[i]] = value;
+        } else {
+          result = result[keys[i]];
+        }
       }
-    },
-    editTab() {
-      this.tabs.pop("名称");
-      this.myWorks.pop("项目");
-    },
-    onEdit(key,value){
-        console.log(key,value)
     }
+  },
+  components: {
+    Eventable
   }
 };
 </script>
@@ -65,13 +92,14 @@ export default {
 
 <style lang="scss" scoped>
 .resume_works {
-  border: 1px solid;
   width: 960px;
   margin: 0 auto;
+  padding-bottom: 100px;
   h1 {
     text-align: center;
   }
   .project {
+    margin-top: 40px;
     .tab {
       display: flex;
       justify-content: center;
@@ -103,21 +131,34 @@ export default {
     .content {
       display: flex;
       justify-content: center;
-      margin-top: 40px;
+      margin-top: 50px;
       .left {
-        width: 400px;
-        border: 1px solid;
+        width: 320px;
         padding: 20px;
-        h3{
-            margin-bottom: 20px;
+        max-height: 400px;
+        min-height: 200px;
+        h2 {
+          margin-bottom: 20px;
+        }
+        .item_description {
+          margin-bottom: 20px;
+        }
+        .item_link {
+          color: #007bff;
+        }
+        p {
+          color: #4d4d4d;
+          margin-top: 5px;
+          font-size: 16px;
+          line-height: 1.4;
         }
       }
       .right {
-        min-width: 200px;
+        min-width: 300px;
         max-width: 400px;
         max-height: 400px;
         margin-left: 70px;
-        border: 1px solid;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         display: flex;
         justify-content: center;
         align-items: center;

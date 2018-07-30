@@ -16,11 +16,11 @@
              <div class="network">
                 <h2>社交信息</h2>
                 <ul>
-                    <li>邮箱:<Eventable :value="information.email" @edit="onEdit('email',$event)"/></li>
-                    <li>QQ:<Eventable :value="information.qq" @edit="onEdit('qq',$event)"/></li>
-                    <li>Github:<Eventable :value="information.github" @edit="onEdit('github',$event)"/></li>
-                    <li>Wechat:<Eventable :value="information.wechat" @edit="onEdit('wechat',$event)"/></li>
-                    <li>个人博客:<Eventable :value="information.Blog" @edit="onEdit('Blog',$event)"/></li>
+                    <li>邮箱:<Eventable :value="contact.email" @edit="onEdit('email',$event)"/></li>
+                    <li>QQ:<Eventable :value="contact.qq" @edit="onEdit('qq',$event)"/></li>
+                    <li>Github:<Eventable :value="contact.github" @edit="onEdit('github',$event)"/></li>
+                    <li>Wechat:<Eventable :value="contact.wechat" @edit="onEdit('wechat',$event)"/></li>
+                    <li>个人博客:<Eventable :value="contact.Blog" @edit="onEdit('Blog',$event)"/></li>
                 </ul>
             </div>
         </div>
@@ -32,6 +32,7 @@
 import Eventable from "./Eventable";
 export default {
   name: "Resume_comments",
+  props:['contact'],
   data() {
     return {
       messages: {
@@ -39,18 +40,11 @@ export default {
         Phone: "",
         content: ""
       },
-      information: {
-        email: "79334424@qq.com",
-        qq: 79334424,
-        github: "www.github.fallen158",
-        wechat: 13717022872,
-        Blog: "myBlog"
-      }
     };
   },
   methods: {
     onEdit(key, value) {
-      this.information[key] = value;
+      this.contact[key] = value;
     },
     onMessage() {
       var Todo = AV.Object.extend("Todo");
