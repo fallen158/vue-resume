@@ -3,8 +3,8 @@
         <h1>作品展示</h1>
         <div class="project">
             <ul class="tab">
-                <li v-for="tab,index in information.works" :class="{active:currenTtab === index}" @click="onTab(index)">
-                   <Eventable :value="tab.name" @edit="onEdit('works['+index+'].name',$event)"/>
+                <li v-for="tab,index in information.projects" :class="{active:currenTtab === index}" @click="onTab(index)">
+                   <Eventable :value="tab.name" @edit="onEdit('projects['+index+'].name',$event)"/>
                     <div @click="removeTab" class="editTab" v-if="index>3">x</div>
                 </li>
                 <li @click="addTab">+</li>

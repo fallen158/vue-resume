@@ -77,36 +77,30 @@ export default {
         city: "深圳",
         Hobby: "旅游",
         dream: "全栈工程师",
-        works: [
-          { name: "项目名称" },
-          { name: "项目名称" },
-          { name: "项目名称" },
-          { name: "项目名称" }
-        ],
         projects: [
           {
-            name: "项目名称",
+            name: "在线简历编辑",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
             avatar: "头像"
           },
           {
-            name: "项目名称",
+            name: "QQ音乐",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
             avatar: "头像"
           },
           {
-            name: "项目名称",
+            name: "cnode社区",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
             avatar: "头像"
           },
           {
-            name: "项目名称",
+            name: "在线便利贴",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
