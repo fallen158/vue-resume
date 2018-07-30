@@ -64,16 +64,12 @@ export default {
       this.information.projects.pop();
     },
     onEdit(key, value) {
-      console.log(key, value);
       let reg = /\[(\d+)\]/g;
       key = key.replace(reg, (match, number) => {
         return "." + number;
       });
-      console.log(key);
       let keys = key.split(".");
-      console.log(keys);
       let result = this.information;
-      console.log(result);
       for (let i = 0; i < keys.length; i++) {
         if (i === keys.length - 1) {
           result[keys[i]] = value;
@@ -93,7 +89,7 @@ export default {
 <style lang="scss" scoped>
 .resume_works {
   width: 960px;
-  margin: 0 auto;
+  margin: 80px  auto 0 auto;
   padding-bottom: 100px;
   h1 {
     text-align: center;

@@ -1,7 +1,7 @@
 <template>
     <span class="eventable">
         <span v-if="!editing">{{value}}</span>
-        <input v-show="editing" type="text" @input="triggerEdit">
+        <textarea v-show="editing" type="text" @input="triggerEdit"></textarea>
         <button @click="editing= !editing">edit</button>
     </span>
 </template>
@@ -37,5 +37,9 @@ export default {
 .eventable:hover button {
   display: inline-block;
   z-index: 1;
+}
+
+textarea{
+  resize: none;
 }
 </style>

@@ -42,7 +42,7 @@
             </address>
           </div> 
         </div>
-        <Skills/>
+        <Skills :abilitys="resume"/>
         <Works :information="resume"/>
         <Comments :contact="resume.information"/>
       </div>
@@ -76,7 +76,7 @@ export default {
         Education: "高中",
         city: "深圳",
         Hobby: "旅游",
-        dream: "全栈工程师",
+        dream: "前端工程师",
         projects: [
           {
             name: "在线简历编辑",
@@ -113,15 +113,30 @@ export default {
           github: "www.github.fallen158",
           wechat: 13717022872,
           Blog: "myBlog"
-        }
-      },
-      message: "1"
+        },
+        skills: [
+          { name: "HTML5 & CSS3" },
+          { name: "ECMAScript5,6,7" },
+          { name: "Vue" },
+          { name: "React" },
+          { name: "Node.JS" },
+          { name: "python" }
+        ],
+        summary: [
+          { name: "HTML5 & CSS3",description: '掌握HTML5 & CSS3技能描述1',message:'掌握HTML5 & CSS3技能描述2'},
+          { name: "ECMAScript5,6,7",description: '掌握 ECMAScript5,6,7 技能描述1',message:'掌握 ECMAScript5,6,7 技能描述2'},
+          { name: "Vue",description: '掌握 Vue 技能描述1',message:'掌握 Vue 技能描述2'},
+          { name: "React",description: '掌握 React 技能描述1',message:'掌握 React 技能描述2'},
+          { name: "Node.JS",description: '掌握 Node.js 技能描述1',message:'掌握 Node.js 技能描述2'},
+          { name: "python",description: '掌握 Python 技能描述1',message:'掌握 Python 技能描述2'}
+        ],
+        message: "1"
+      }
     };
   },
   methods: {
     onEdit(key, value) {
-      this.resume[key] = value;
-      console.log(key);
+      this.resume[key] = value
     }
   }
 };
