@@ -2,12 +2,30 @@
     <div class="resume_skill">
         <h1>个人技能</h1>
         <div class="skill_content">
-            <ol>
-                <li v-for="skill,index in abilitys.skills">
-                    <div>
-                        <Eventable :value="skill.name"  @edit="onEdit('skills['+index+'].name',$event)"/>
-                        <div class="progress"></div>
-                    </div>
+            <ol >
+                <li>
+                  <Eventable :value="slider.name"  @edit="onEdit('name',$event)"/>
+                  <el-slider tooltip-class="x" v-model="filling.value"></el-slider>
+                </li>
+                <li>
+                  <Eventable :value="slider.name2"  @edit="onEdit('name2',$event)"/>
+                  <el-slider v-model="filling.value2"></el-slider>
+                </li>
+                 <li>
+                  <Eventable :value="slider.name3"  @edit="onEdit('name3',$event)"/>
+                  <el-slider v-model="filling.value3"></el-slider>
+                </li>
+                <li>
+                  <Eventable :value="slider.name4"  @edit="onEdit('name4',$event)"/>
+                  <el-slider v-model="filling.value4"></el-slider>
+                </li>
+                 <li>
+                  <Eventable :value="slider.name5"  @edit="onEdit('name5',$event)"/>
+                  <el-slider v-model="filling.value5"></el-slider>
+                </li>
+                <li>
+                  <Eventable :value="slider.name6"  @edit="onEdit('name6',$event)"/>
+                  <el-slider v-model="filling.value6"></el-slider>
                 </li>
             </ol>
         </div>
@@ -18,9 +36,9 @@
                 </h3>
                 <li>
                     <Eventable :value="item.description" @edit="onEdit('summary['+index+'].description',$event)"/>
-                </li>          
+                </li>
                 <li>
-                    <Eventable  :value="item.description" @edit="onEdit('summary['+index+'].messgae',$event)"/>
+                   <Eventable :value="item.message" @edit="onEdit('summary['+index+'].message',$event)"/>
                 </li>
             </ul>
         </div>
@@ -32,12 +50,17 @@
 import Eventable from "./Eventable";
 export default {
   name: "Skills",
-  props: ["abilitys"],
+  props: ["abilitys","slider","filling"],
   components: {
     Eventable
   },
+  data() {
+    return {
+    };
+  },
   methods: {
     onEdit(key, value) {
+      this.slider[key] = value
       let reg = /\[(\d+)\]/g;
       key = key.replace(reg, (match, number) => {
         return "." + number;

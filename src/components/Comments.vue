@@ -58,7 +58,7 @@ export default {
           this.messages.Email = '';
           this.messages.Phone = ''
           this.messages.content = ''
-          alert('保存成功');
+          alert('留言成功');
         },
         function(error) {
           console.log(error)
@@ -116,7 +116,7 @@ export default {
         button {
           width: 330px;
           height: 30px;
-          background: #000;
+          background: #409eff;
           color: white;
         }
       }

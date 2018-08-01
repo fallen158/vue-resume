@@ -19,14 +19,14 @@
                         <Eventable :value="item.description" @edit="onEdit('projects['+index+'].description',$event)"></Eventable>
                       </p>
                       <p>
-                        源码链接: <Eventable :value="item.link" @edit="onEdit('projects['+index+'].link',$event)" class="item_link"></Eventable> 
+                        源码链接: <Eventable :value="item.link" @edit="onEdit('projects['+index+'].link',$event)" class="item_link"></Eventable>
                       </p>
                       <p>
                         预览链接: <Eventable :value="item.url" @edit="onEdit('projects['+index+'].url',$event)" class="item_link"></Eventable>
                       </p>
                   </div>
                   <div class="right">
-                    {{item.avatar}}
+                    <input type="file" name="img" accept="image/*">
                   </div>
               </li>
             </ul>
@@ -42,7 +42,8 @@ export default {
   props: ["information"],
   data() {
     return {
-      currenTtab: 0
+      currenTtab: 0,
+      imageUrl: ''
     };
   },
   methods: {
@@ -89,7 +90,7 @@ export default {
 <style lang="scss" scoped>
 .resume_works {
   width: 960px;
-  margin: 80px  auto 0 auto;
+  margin: 80px auto 0 auto;
   padding-bottom: 100px;
   h1 {
     text-align: center;

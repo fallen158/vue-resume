@@ -4,7 +4,7 @@
       <div class="resume">
         <nav class="navigation">
            <div class="logo">
-               <h3>{{logo}}</h3>
+               <h3><Eventable :value="resume.logo" @edit="onEdit('logo',$event)"/></h3>
            </div>
            <ul class="topbar clearfix">
                <li>关于</li>
@@ -17,7 +17,7 @@
         <div class="IntroContet">
           <h1>关于我</h1>
           <div class="Introduction">
-            <div class="IntroWraper">   
+            <div class="IntroWraper">
                 <div class="wraperImge">
                     上传头像
                 </div>
@@ -40,9 +40,9 @@
                     </dl>
                 </div>
             </address>
-          </div> 
+          </div>
         </div>
-        <Skills :abilitys="resume"/>
+        <Skills :abilitys="resume" :slider="resume.skills" :filling="resume.values"/>
         <Works :information="resume"/>
         <Comments :contact="resume.information"/>
       </div>
@@ -67,7 +67,6 @@ export default {
   },
   data() {
     return {
-      logo: "re",
       editingName: false,
       resume: {
         name: "刘文超",
@@ -77,6 +76,7 @@ export default {
         city: "深圳",
         Hobby: "旅游",
         dream: "前端工程师",
+        logo: "resume",
         projects: [
           {
             name: "在线简历编辑",
@@ -114,21 +114,53 @@ export default {
           wechat: 13717022872,
           Blog: "myBlog"
         },
-        skills: [
-          { name: "HTML5 & CSS3" },
-          { name: "ECMAScript5,6,7" },
-          { name: "Vue" },
-          { name: "React" },
-          { name: "Node.JS" },
-          { name: "python" }
-        ],
+        skills: {
+          name: "HTML5 & CSS3",
+          name2: "ECMAScript5,6,7",
+          name3: "Vue",
+          name4: "React",
+          name5: "Node.js",
+          name6: "python"
+        },
+        values: {
+          value: 20,
+          value2: 25,
+          value3: 30,
+          value4: 40,
+          value5: 50,
+          value6: 60
+        },
         summary: [
-          { name: "HTML5 & CSS3",description: '掌握HTML5 & CSS3技能描述1',message:'掌握HTML5 & CSS3技能描述2'},
-          { name: "ECMAScript5,6,7",description: '掌握 ECMAScript5,6,7 技能描述1',message:'掌握 ECMAScript5,6,7 技能描述2'},
-          { name: "Vue",description: '掌握 Vue 技能描述1',message:'掌握 Vue 技能描述2'},
-          { name: "React",description: '掌握 React 技能描述1',message:'掌握 React 技能描述2'},
-          { name: "Node.JS",description: '掌握 Node.js 技能描述1',message:'掌握 Node.js 技能描述2'},
-          { name: "python",description: '掌握 Python 技能描述1',message:'掌握 Python 技能描述2'}
+          {
+            name: "HTML5 & CSS3",
+            description: "掌握HTML5 & CSS3技能描述1",
+            message: "掌握HTML5 & CSS3技能描述2"
+          },
+          {
+            name: "ECMAScript5,6,7",
+            description: "掌握 ECMAScript5,6,7 技能描述1",
+            message: "掌握 ECMAScript5,6,7 技能描述2"
+          },
+          {
+            name: "Vue",
+            description: "掌握 Vue 技能描述1",
+            message: "掌握 Vue 技能描述2"
+          },
+          {
+            name: "React",
+            description: "掌握 React 技能描述1",
+            message: "掌握 React 技能描述2"
+          },
+          {
+            name: "Node.JS",
+            description: "掌握 Node.js 技能描述1",
+            message: "掌握 Node.js 技能描述2"
+          },
+          {
+            name: "python",
+            description: "掌握 Python 技能描述1",
+            message: "掌握 Python 技能描述2"
+          }
         ],
         message: "1"
       }
@@ -136,7 +168,7 @@ export default {
   },
   methods: {
     onEdit(key, value) {
-      this.resume[key] = value
+      this.resume[key] = value;
     }
   }
 };
@@ -155,8 +187,11 @@ export default {
   .navigation {
     display: flex;
     justify-content: space-between;
-    border: 1px solid;
-    padding: 15px;
+    padding: 25px;
+    color: #409eff;
+    background-color: transparent;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    z-index: 1;
     .logo {
     }
     .topbar {
