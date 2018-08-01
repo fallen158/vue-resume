@@ -2,7 +2,7 @@
     <aside class="silebar">
         <div class="uper">
             <button>保存简历</button>
-            <router-link to="/login">
+            <router-link to="/singin">
               <button>登录账户</button>
             </router-link>
             <router-link to="/singup">

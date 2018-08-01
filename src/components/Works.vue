@@ -23,11 +23,11 @@
                       </p>
                       <p>
                         预览链接: <Eventable :value="item.url" @edit="onEdit('projects['+index+'].url',$event)" class="item_link"></Eventable>
-                      </p>  
+                      </p>
                   </div>
                   <div class="right" >
-                    <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput">
-                    <img :src="workImage" id="img_input" v-show="showImage">
+                     <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput">
+                          <img :src="workImage" id="img_input" v-show="showImage">
                  </div>
               </li>
             </ul>
@@ -53,7 +53,7 @@ export default {
       this.currenTtab = index;
     },
     addTab() {
-      this.information.works.push({ name: "项目名称" });
+      this.information.projects.push({ name: "项目名称" });
       this.information.projects.push({
         name: "项目名称",
         description: "项目简介",
@@ -63,7 +63,7 @@ export default {
       });
     },
     removeTab() {
-      this.information.works.pop();
+      this.information.projects.pop();
       this.information.projects.pop();
     },
     onEdit(key, value) {

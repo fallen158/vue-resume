@@ -3,7 +3,7 @@
         <h2>Remit</h2>
         <div class="content_wraper">
           <h3>Welcome!</h3>
-          <p class="prompt">Sign up by entering the information below</p>
+          <p class="prompt">Sign in by entering the information below</p>
           <form class="form_relef">
             <label>
               <input type="text" class="name">
@@ -20,9 +20,9 @@
               </div>
           </div>
             <div class="submit">
-              <button type="submit">Sing up</button>
+              <button type="submit">Sing in</button>
               <div class="switching">
-                <router-link to="/singin">Have an account? Log in here.</router-link>
+                <router-link to="/singup">Don't have an account? Create one here.</router-link>
               </div>
             </div>
           </form>

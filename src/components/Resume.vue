@@ -227,10 +227,8 @@ export default {
     .IntroWraper {
       padding: 30px;
       .wraperImge {
-        min-width: 300px;
-        min-height: 300px;
-        max-width: 300px;
-        max-height: 300px;
+        width: 300px;
+        height: 300px;
         margin-right: 50px;
         border: 1px dashed #d9d9d9;
         border-radius: 6px;
@@ -238,8 +236,8 @@ export default {
         justify-content: center;
         align-items: center;
         img{
-          width:100%;
-          height:100%;
+        width: 100%;
+        height: 300px;
         }
       }
     }

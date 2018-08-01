@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
+import Singin from '@/components/Singin'
 import Singup from '@/components/Singup'
 import Automtic from '@/components/Automtic'
 import Resume from '@/components/Resume'
@@ -17,10 +17,10 @@ export default new Router({
       }
     },
     {
-      path: '/login',
+      path: '/singin',
       name: 'login',
       components:{
-        main:Login
+        main:Singin
       }
     },
     {
