@@ -4,12 +4,12 @@
         <div class="content_wraper">
           <h3>Welcome!</h3>
           <p class="prompt">Sign up by entering the information below</p>
-          <form class="form_relef">
+          <form class="form_relef" @submit.prevent="onSingUp">
             <label>
-              <input type="text" class="name">
+              <input type="text" class="name" placeholder="请输入邮箱" v-model="email">
             </label>
             <label>
-              <input type="password" class="name">
+              <input type="password" class="name" placeholder="请输入密码" v-model="password">
             </label>
             <div class="work">
               <label>
@@ -36,7 +36,32 @@
 
 <script>
 export default {
-  name: "Login"
+  name: "Login",
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    onSingUp(key) {
+      var user = new AV.User();
+      user.setUsername(this.email);
+      user.setPassword(this.password);
+      user.setEmail(this.email);
+      user.signUp().then(res=>{
+        alert('注册成功')
+        this.email = ''
+        this.password = ''
+      }).catch(err=>{
+        if(err.code === 203){
+          alert('此电子邮箱已经被占用')
+        }else if(err.code === 125){
+          alert('请输入正确的邮箱')
+        }
+      })
+    }
+  }
 };
 </script>
 
@@ -67,7 +92,9 @@ export default {
         height: 30px;
         display: block;
         margin: 10px auto;
-        padding:  0 5px;
+        padding: 0 5px;
+        font-size: 12px;
+        color: #999;
       }
       .work {
         display: flex;

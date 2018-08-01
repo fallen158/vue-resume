@@ -6,10 +6,10 @@
           <p class="prompt">Sign in by entering the information below</p>
           <form class="form_relef">
             <label>
-              <input type="text" class="name">
+              <input type="text" class="name" placeholder="请输入邮箱">
             </label>
             <label>
-              <input type="password" class="name">
+              <input type="password" class="name" placeholder="请输入密码">
             </label>
             <div class="work">
               <label>
@@ -68,6 +68,8 @@ export default {
         display: block;
         margin: 10px auto;
         padding:  0 5px;
+        font-size: 12px;
+        color: #999;
       }
       .work {
         display: flex;
