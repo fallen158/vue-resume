@@ -19,7 +19,8 @@
           <div class="Introduction">
             <div class="IntroWraper">
                 <div class="wraperImge">
-                    上传头像
+                    <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput">
+                    <img :src="resumeImage" id="img_input" v-show="showImage">
                 </div>
             </div>
             <address class="IntroMessage">
@@ -68,6 +69,9 @@ export default {
   data() {
     return {
       editingName: false,
+      resumeImage: '',
+      showInput: true,
+      showImage: false,
       resume: {
         name: "刘文超",
         jobTitle: "前端开发工程师",
@@ -169,6 +173,16 @@ export default {
   methods: {
     onEdit(key, value) {
       this.resume[key] = value;
+    },
+        onImage(e){
+      let file = e.target.files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = (e)=>{
+        this.resumeImage = e.target.result
+        this.showInput = false
+        this.showImage = true
+      }
     }
   }
 };
@@ -213,15 +227,20 @@ export default {
     .IntroWraper {
       padding: 30px;
       .wraperImge {
-        width: 300px;
-        height: 300px;
-        max-width: 400px;
-        max-height: 400px;
+        min-width: 300px;
+        min-height: 300px;
+        max-width: 300px;
+        max-height: 300px;
+        margin-right: 50px;
         border: 1px dashed #d9d9d9;
         border-radius: 6px;
         display: flex;
         justify-content: center;
         align-items: center;
+        img{
+          width:100%;
+          height:100%;
+        }
       }
     }
     .IntroMessage {

@@ -23,17 +23,17 @@
                       </p>
                       <p>
                         预览链接: <Eventable :value="item.url" @edit="onEdit('projects['+index+'].url',$event)" class="item_link"></Eventable>
-                      </p>
+                      </p>  
                   </div>
-                  <div class="right">
-                    <input type="file" name="img" accept="image/*">
-                  </div>
+                  <div class="right" >
+                    <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput">
+                    <img :src="workImage" id="img_input" v-show="showImage">
+                 </div>
               </li>
             </ul>
         </div>
     </div>
 </template>
-
 
 <script>
 import Eventable from "./Eventable";
@@ -43,7 +43,9 @@ export default {
   data() {
     return {
       currenTtab: 0,
-      imageUrl: ''
+      workImage: '',
+      showInput: true,
+      showImage: false
     };
   },
   methods: {
@@ -77,6 +79,16 @@ export default {
         } else {
           result = result[keys[i]];
         }
+      }
+    },
+    onImage(e){
+      let file = e.target.files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = (e)=>{
+        this.workImage = e.target.result
+        this.showInput = false
+        this.showImage = true
       }
     }
   },
@@ -134,6 +146,7 @@ export default {
         padding: 20px;
         max-height: 400px;
         min-height: 200px;
+        border:1px solid;
         h2 {
           margin-bottom: 20px;
         }
@@ -154,11 +167,15 @@ export default {
         min-width: 300px;
         max-width: 400px;
         max-height: 400px;
-        margin-left: 70px;
+        margin-left: 40px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         display: flex;
         justify-content: center;
         align-items: center;
+        #img_input{
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
