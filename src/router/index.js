@@ -10,15 +10,15 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
       name: 'root',
+      path: '/',
       components:{
         main: Resume
       }
     },
     {
       path: '/singin',
-      name: 'login',
+      name: 'singin',
       components:{
         main:Singin
       }
@@ -31,7 +31,7 @@ export default new Router({
       }
     },
     {
-      path: '/Automtic',
+      path: '/automtic',
       name: 'automtic',
       components:{
         main: Automtic

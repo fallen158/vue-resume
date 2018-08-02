@@ -1,6 +1,6 @@
 <template>
     <div class="app_content">
-      <silebar/>
+      <silebar :userId="userId"/>
       <div class="resume">
         <nav class="navigation">
            <div class="logo">
@@ -69,9 +69,10 @@ export default {
   data() {
     return {
       editingName: false,
-      resumeImage: '',
+      resumeImage: "",
       showInput: true,
       showImage: false,
+      userId: "",
       resume: {
         name: "刘文超",
         jobTitle: "前端开发工程师",
@@ -174,16 +175,21 @@ export default {
     onEdit(key, value) {
       this.resume[key] = value;
     },
-        onImage(e){
-      let file = e.target.files[0]
-      let reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = (e)=>{
-        this.resumeImage = e.target.result
-        this.showInput = false
-        this.showImage = true
-      }
+    onImage(e) {
+      let file = e.target.files[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = e => {
+        this.resumeImage = e.target.result;
+        this.showInput = false;
+        this.showImage = true;
+      };
     }
+  },
+  beforeMount() {
+    let currentUser = AV.User.current();
+    currentUser = currentUser.toJSON();
+    this.userId = currentUser.objectId;
   }
 };
 </script>
@@ -235,9 +241,9 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        img{
-        width: 100%;
-        height: 300px;
+        img {
+          width: 100%;
+          height: 300px;
         }
       }
     }

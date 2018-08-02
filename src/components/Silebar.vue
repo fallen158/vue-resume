@@ -3,12 +3,12 @@
         <div class="uper">
             <button>保存简历</button>
             <router-link to="/singin">
-              <button>登录账户</button>
+              <button v-show="hideLogin">登录账户</button>
             </router-link>
             <router-link to="/singup">
-              <button>注册账户</button>
+              <button v-show="hideLogin">注册账户</button>
             </router-link>
-            <button>分享简历</button>
+              <button>分享简历</button>
             <button>打印简历</button>
             <button>风格设置</button>
             <router-link to="/automtic">
@@ -16,7 +16,7 @@
             </router-link>
         </div>
         <div class="down">
-            <button class="warning"> 登出账户</button>
+            <button class="warning" @click="logOut" v-show="hideOut"> 登出账户</button>
         </div>
     </aside>
 </template>
@@ -24,7 +24,32 @@
 
 <script>
 export default {
-  name: "Silebar"
+  name: "Silebar",
+  props: ["userId"],
+  data() {
+    return {
+      hideLogin: true,
+      hideOut: false
+    };
+  },
+  methods: {
+    logOut() {
+      AV.User.logOut().then(res => {
+        this.hideLogin = true
+        this.hideOut = false
+        alert('登出成功')
+      });
+    }
+  },
+  beforeMount() {
+    let currentUser = AV.User.current();
+    currentUser = currentUser.toJSON();
+    this.userId = currentUser.objectId;
+    if (this.userId) {
+      this.hideLogin = false;
+      this.hideOut = true;
+    }
+  }
 };
 </script>
 

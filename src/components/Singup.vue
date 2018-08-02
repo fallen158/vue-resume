@@ -50,9 +50,9 @@ export default {
       user.setPassword(this.password);
       user.setEmail(this.email);
       user.signUp().then(res=>{
-        alert('注册成功')
-        this.email = ''
-        this.password = ''
+        alert('注册成功,已为您登录')
+        AV.User.logIn(this.email, this.password)
+        this.$router.push('/')
       }).catch(err=>{
         if(err.code === 203){
           alert('此电子邮箱已经被占用')

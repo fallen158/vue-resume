@@ -4,12 +4,12 @@
         <div class="content_wraper">
           <h3>Welcome!</h3>
           <p class="prompt">Sign in by entering the information below</p>
-          <form class="form_relef">
+          <form class="form_relef" @submit.prevent="onSingIn">
             <label>
-              <input type="text" class="name" placeholder="请输入邮箱">
+              <input type="text" class="name" placeholder="请输入邮箱" v-model="email">
             </label>
             <label>
-              <input type="password" class="name" placeholder="请输入密码">
+              <input type="password" class="name" placeholder="请输入密码" v-model="password">
             </label>
             <div class="work">
               <label>
@@ -36,7 +36,30 @@
 
 <script>
 export default {
-  name: "Login"
+  name: "",
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    onSingIn() {
+      AV.User.logIn(this.email, this.password)
+        .then(user => {
+          alert('登录成功')
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err);
+          if (err.code === 210) {
+            alert("用户名和密码不匹配");
+          } else if (err.code === 211) {
+            alert("请输入正确的邮箱");
+          }
+        });
+    },
+  }
 };
 </script>
 
@@ -67,7 +90,7 @@ export default {
         height: 30px;
         display: block;
         margin: 10px auto;
-        padding:  0 5px;
+        padding: 0 5px;
         font-size: 12px;
         color: #999;
       }
