@@ -47,8 +47,8 @@ export default {
     onSingIn() {
       AV.User.logIn(this.email, this.password)
         .then(user => {
-          alert('登录成功')
-          this.$router.push('/')
+          alert("登录成功");
+          this.$router.push("/");
         })
         .catch(err => {
           console.log(err);
@@ -58,7 +58,7 @@ export default {
             alert("请输入正确的邮箱");
           }
         });
-    },
+    }
   }
 };
 </script>

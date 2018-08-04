@@ -1,6 +1,6 @@
 <template>
     <div class="app_content">
-      <silebar :userId="userId"/>
+      <silebar :resume="resume"/>
       <div class="resume">
         <nav class="navigation">
            <div class="logo">
@@ -19,8 +19,9 @@
           <div class="Introduction">
             <div class="IntroWraper">
                 <div class="wraperImge">
-                    <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput">
-                    <img :src="resumeImage" id="img_input" v-show="showImage">
+                    <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput" class="fileSelect">
+                    <img :src="resume.userImg" id="img_input" v-show="showImage">
+                    <i class="el-icon-plus avatar-uploader-icon" @click="uploadImg" v-show="showIcon"></i>
                 </div>
             </div>
             <address class="IntroMessage">
@@ -69,47 +70,55 @@ export default {
   data() {
     return {
       editingName: false,
-      resumeImage: "",
-      showInput: true,
+      showInput: false,
       showImage: false,
-      userId: "",
+      showIcon: true,
+      currentUser: {
+        objectId: undefined,
+        email: ""
+      },
+      previewUser: {
+        objectId: undefined
+      },
+      previewResume: {},
       resume: {
         name: "刘文超",
         jobTitle: "前端开发工程师",
-        age: 21,
-        Education: "高中",
+        age: 22,
+        Education: "xxxx",
         city: "深圳",
-        Hobby: "旅游",
+        Hobby: "xxx",
         dream: "前端工程师",
         logo: "resume",
+        userImg: "",
         projects: [
           {
             name: "在线简历编辑",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
-            avatar: "头像"
+            workImage: ""
           },
           {
             name: "QQ音乐",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
-            avatar: "头像"
+            workImage: ""
           },
           {
             name: "cnode社区",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
-            avatar: "头像"
+            workImage: ""
           },
           {
             name: "在线便利贴",
             description: "项目简介",
             link: "htttps://",
             url: "https://",
-            avatar: "头像"
+            workImage: ""
           }
         ],
         information: {
@@ -180,16 +189,34 @@ export default {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = e => {
-        this.resumeImage = e.target.result;
+        this.resume.userImg = e.target.result;
         this.showInput = false;
         this.showImage = true;
       };
+    },
+    uploadImg() {
+      if (!this.showInput) {
+        document.querySelector(".fileSelect").click();
+        this.showIcon = false;
+      }
     }
   },
   beforeMount() {
     let currentUser = AV.User.current();
     currentUser = currentUser.toJSON();
-    this.userId = currentUser.objectId;
+    if (currentUser) {
+      this.hideLogin = false;
+      this.hideOut = true;
+      this.currentUser.objectId = currentUser.objectId;
+    }
+
+    var query = new AV.Query("User");
+    query.get(this.currentUser.objectId).then(user=>{
+      let resume = user.toJSON().resume
+      this.resume = resume
+      console.log(this.resume)
+
+    });
   }
 };
 </script>
@@ -212,8 +239,6 @@ export default {
     background-color: transparent;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    .logo {
-    }
     .topbar {
       li {
         float: left;
@@ -236,14 +261,21 @@ export default {
         width: 300px;
         height: 300px;
         margin-right: 50px;
-        border: 1px dashed #d9d9d9;
+        background-color: #fbfdff;
+        border: 1px dashed #c0ccda;
         border-radius: 6px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        position: relative;
         img {
           width: 100%;
           height: 300px;
+          z-index: 1;
+        }
+        .avatar-uploader-icon {
+          font-size: 50px;
+          color: #8c939d;
+          position: absolute;
+          top: 40%;
+          left: 42%;
         }
       }
     }

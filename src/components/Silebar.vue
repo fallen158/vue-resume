@@ -1,7 +1,7 @@
 <template>
     <aside class="silebar">
         <div class="uper">
-            <button>保存简历</button>
+            <button @click="saveResume">保存简历</button>
             <router-link to="/singin">
               <button v-show="hideLogin">登录账户</button>
             </router-link>
@@ -25,7 +25,7 @@
 <script>
 export default {
   name: "Silebar",
-  props: ["userId"],
+  props: ["resume"],
   data() {
     return {
       hideLogin: true,
@@ -35,20 +35,20 @@ export default {
   methods: {
     logOut() {
       AV.User.logOut().then(res => {
-        this.hideLogin = true
-        this.hideOut = false
-        alert('登出成功')
+        this.hideLogin = true;
+        this.hideOut = false;
+        alert("登出成功");
+        window.location.reload();
       });
-    }
-  },
-  beforeMount() {
-    let currentUser = AV.User.current();
-    currentUser = currentUser.toJSON();
-    this.userId = currentUser.objectId;
-    if (this.userId) {
-      this.hideLogin = false;
-      this.hideOut = true;
-    }
+    },
+    saveResume() {
+      let { objectId } = AV.User.current().toJSON();
+      var todo = AV.Object.createWithoutData("User", objectId);
+      todo.set("resume", this.resume);
+      todo.save().then(() => {
+        alert("保存成功");
+      });
+    },
   }
 };
 </script>

@@ -26,8 +26,7 @@
                       </p>
                   </div>
                   <div class="right" >
-                     <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput">
-                          <img :src="workImage" id="img_input" v-show="showImage">
+                    <EventImg :value="item.workImage" @edit="onEdit('projects['+index+'].workImage',$event)"/>
                  </div>
               </li>
             </ul>
@@ -37,15 +36,13 @@
 
 <script>
 import Eventable from "./Eventable";
+import EventImg from "./EventImg";
 export default {
   name: "Works",
   props: ["information"],
   data() {
     return {
       currenTtab: 0,
-      workImage: '',
-      showInput: true,
-      showImage: false
     };
   },
   methods: {
@@ -59,7 +56,7 @@ export default {
         description: "项目简介",
         link: "htttps://",
         url: "https://",
-        avatar: "头像"
+        avatar: ""
       });
     },
     removeTab() {
@@ -80,20 +77,11 @@ export default {
           result = result[keys[i]];
         }
       }
-    },
-    onImage(e){
-      let file = e.target.files[0]
-      let reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = (e)=>{
-        this.workImage = e.target.result
-        this.showInput = false
-        this.showImage = true
-      }
     }
   },
   components: {
-    Eventable
+    Eventable,
+    EventImg
   }
 };
 </script>
@@ -146,7 +134,6 @@ export default {
         padding: 20px;
         max-height: 400px;
         min-height: 200px;
-        border:1px solid;
         h2 {
           margin-bottom: 20px;
         }
@@ -163,20 +150,7 @@ export default {
           line-height: 1.4;
         }
       }
-      .right {
-        min-width: 300px;
-        max-width: 400px;
-        max-height: 400px;
-        margin-left: 40px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        #img_input{
-          width: 100%;
-          height: 100%;
-        }
-      }
+
     }
   }
 }

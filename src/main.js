@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import $ from './assets/jquery.min.js'
 
 
 import './assets/reset.css'
