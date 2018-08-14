@@ -1,6 +1,6 @@
 <template>
   <div class="eventImg">
-    <input type="file" @input="triggerEdit" name="img" accept="image/*" v-show="showInput" class="files">
+    <input v-if="mode === 'edit'"  type="file" @input="triggerEdit" name="img" accept="image/*" v-show="showInput" class="files">
     <img :src="value" alt="" id="img_input" v-show="showImage">
   </div>
 </template>
@@ -8,7 +8,7 @@
 <script>
 export default {
   name: "eventImg",
-  props: ["value"],
+  props: ["value","mode"],
   data() {
     return {
       showInput: true,

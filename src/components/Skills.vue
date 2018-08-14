@@ -2,29 +2,29 @@
     <div class="resume_skill">
         <h1>个人技能</h1>
         <div class="skill_content">
-            <ol >
+            <ol class="xxx">
                 <li>
-                  <Eventable :value="slider.name"  @edit="onEdit('name',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name"  @edit="onEdit('name',$event)"/>
                   <el-slider tooltip-class="x" v-model="filling.value"></el-slider>
                 </li>
                 <li>
-                  <Eventable :value="slider.name2"  @edit="onEdit('name2',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name2"  @edit="onEdit('name2',$event)"/>
                   <el-slider v-model="filling.value2"></el-slider>
                 </li>
                  <li>
-                  <Eventable :value="slider.name3"  @edit="onEdit('name3',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name3"  @edit="onEdit('name3',$event)"/>
                   <el-slider v-model="filling.value3"></el-slider>
                 </li>
                 <li>
-                  <Eventable :value="slider.name4"  @edit="onEdit('name4',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name4"  @edit="onEdit('name4',$event)"/>
                   <el-slider v-model="filling.value4"></el-slider>
                 </li>
                  <li>
-                  <Eventable :value="slider.name5"  @edit="onEdit('name5',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name5"  @edit="onEdit('name5',$event)"/>
                   <el-slider v-model="filling.value5"></el-slider>
                 </li>
                 <li>
-                  <Eventable :value="slider.name6"  @edit="onEdit('name6',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name6"  @edit="onEdit('name6',$event)"/>
                   <el-slider v-model="filling.value6"></el-slider>
                 </li>
             </ol>
@@ -32,13 +32,13 @@
         <div class="skill_message">
             <ul v-for="item,index in abilitys.summary" :key="item.id">
                 <h3>
-                    <Eventable :value="item.name" @edit="onEdit('summary['+index+'].name',$event)"/>
+                    <Eventable :mode="mode" :value="item.name" @edit="onEdit('summary['+index+'].name',$event)"/>
                 </h3>
                 <li>
-                    <Eventable :value="item.description" @edit="onEdit('summary['+index+'].description',$event)"/>
+                    <Eventable :mode="mode" :value="item.description" @edit="onEdit('summary['+index+'].description',$event)"/>
                 </li>
                 <li>
-                   <Eventable :value="item.message" @edit="onEdit('summary['+index+'].message',$event)"/>
+                   <Eventable :mode="mode" :value="item.message" @edit="onEdit('summary['+index+'].message',$event)"/>
                 </li>
             </ul>
         </div>
@@ -50,7 +50,7 @@
 import Eventable from "./Eventable";
 export default {
   name: "Skills",
-  props: ["abilitys","slider","filling"],
+  props: ["abilitys","slider","filling","mode"],
   components: {
     Eventable
   },
@@ -123,5 +123,17 @@ export default {
       }
     }
   }
+}
+@media print{
+  .resume_skill{
+    width: 700px;
+  }
+  h1{
+    text-align: center;
+  }
+  .xxx{
+    width: 700px;
+  }
+
 }
 </style>

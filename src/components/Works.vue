@@ -1,32 +1,32 @@
 <template>
     <div class="resume_works">
-        <h1>作品展示</h1>
         <div class="project">
+          <h1>作品展示</h1>
             <ul class="tab">
                 <li v-for="tab,index in information.projects" :class="{active:currenTtab === index}" @click="onTab(index)">
-                   <Eventable :value="tab.name" @edit="onEdit('projects['+index+'].name',$event)"/>
-                    <div @click="removeTab" class="editTab" v-if="index>3">x</div>
+                   <Eventable :mode="mode" :value="tab.name" @edit="onEdit('projects['+index+'].name',$event)"/>
+                    <div @click="removeTab" class="editTab" v-if="index >=5 && mode === 'edit'" >x</div>
                 </li>
-                <li @click="addTab">+</li>
+                <li @click="addTab" v-if="mode === 'edit'">+</li>
             </ul>
             <ul>
               <li class="content" v-for="item,index in information.projects" v-show="index === currenTtab">
                   <div class="left">
                       <h2>
-                        <Eventable :value="item.name" @edit="onEdit('projects['+index+'].name',$event)"></Eventable>
+                        <Eventable :mode="mode" :value="item.name" @edit="onEdit('projects['+index+'].name',$event)"></Eventable>
                       </h2>
                       <p class="item_description">
-                        <Eventable :value="item.description" @edit="onEdit('projects['+index+'].description',$event)"></Eventable>
+                        <Eventable :mode="mode" :value="item.description" @edit="onEdit('projects['+index+'].description',$event)"></Eventable>
                       </p>
                       <p>
-                        源码链接: <Eventable :value="item.link" @edit="onEdit('projects['+index+'].link',$event)" class="item_link"></Eventable>
+                        源码链接: <Eventable :mode="mode" :value="item.link" @edit="onEdit('projects['+index+'].link',$event)" class="item_link"></Eventable>
                       </p>
                       <p>
-                        预览链接: <Eventable :value="item.url" @edit="onEdit('projects['+index+'].url',$event)" class="item_link"></Eventable>
+                        预览链接: <Eventable :mode="mode" :value="item.url" @edit="onEdit('projects['+index+'].url',$event)" class="item_link"></Eventable>
                       </p>
                   </div>
                   <div class="right" >
-                    <EventImg :value="item.workImage" @edit="onEdit('projects['+index+'].workImage',$event)"/>
+                    <EventImg :mode="mode" :value="item.workImage" @edit="onEdit('projects['+index+'].workImage',$event)"/>
                  </div>
               </li>
             </ul>
@@ -39,7 +39,7 @@ import Eventable from "./Eventable";
 import EventImg from "./EventImg";
 export default {
   name: "Works",
-  props: ["information"],
+  props: ["information","mode"],
   data() {
     return {
       currenTtab: 0,
@@ -88,12 +88,21 @@ export default {
 
 
 <style lang="scss" scoped>
+@media print{
+  h1{
+    text-align: center;
+  }
+  .project{
+    width: 700px;
+  }
+}
 .resume_works {
   width: 960px;
   margin: 80px auto 0 auto;
   padding-bottom: 100px;
   h1 {
     text-align: center;
+    margin: 40px 0 ;
   }
   .project {
     margin-top: 40px;

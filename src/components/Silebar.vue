@@ -8,8 +8,8 @@
             <router-link to="/singup">
               <button v-show="hideLogin">注册账户</button>
             </router-link>
-              <button>分享简历</button>
-            <button>打印简历</button>
+              <button @click="showLink">分享简历</button>
+            <button @click="showPrint">打印简历</button>
             <button>风格设置</button>
             <router-link to="/automtic">
               <button>自动简历</button>
@@ -42,13 +42,35 @@ export default {
       });
     },
     saveResume() {
-      let { objectId } = AV.User.current().toJSON();
-      var todo = AV.Object.createWithoutData("User", objectId);
-      todo.set("resume", this.resume);
-      todo.save().then(() => {
-        alert("保存成功");
-      });
+      let currentUser = AV.User.current();
+      if (currentUser === null) {
+        alert("请先登录");
+        return;
+      } else {
+        let { objectId } = AV.User.current().toJSON();
+        var todo = AV.Object.createWithoutData("User", objectId);
+        todo.set("resume", this.resume);
+        todo.save().then(() => {
+          alert("保存成功");
+        });
+      }
     },
+    showPrint() {
+      window.print();
+    },
+    showLink() {
+      this.$emit("click-share");
+    }
+  },
+  beforeMount() {
+    let currentUser = AV.User.current();
+    if (currentUser === null) {
+      console.log("没有登录");
+      return;
+    } else {
+      this.hideLogin = false;
+      this.hideOut = true;
+    }
   }
 };
 </script>
@@ -88,6 +110,11 @@ export default {
       padding: 9px 15px;
       margin-left: 10px;
     }
+  }
+}
+@media print {
+  .silebar {
+    display: none;
   }
 }
 </style>

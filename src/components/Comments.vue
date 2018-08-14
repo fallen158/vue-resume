@@ -1,6 +1,6 @@
 <template>
     <div class="resume_comments">
-        <h1>联系我</h1>
+      <h1>联系我</h1>
         <div class="comment_content">
             <div class="messages">
                 <h3>FELL FREE TO WRITE US</h3>
@@ -16,11 +16,11 @@
              <div class="network">
                 <h2>社交信息</h2>
                 <ul>
-                    <li>邮箱:<Eventable :value="contact.email" @edit="onEdit('email',$event)"/></li>
-                    <li>QQ:<Eventable :value="contact.qq" @edit="onEdit('qq',$event)"/></li>
-                    <li>Github:<Eventable :value="contact.github" @edit="onEdit('github',$event)"/></li>
-                    <li>Wechat:<Eventable :value="contact.wechat" @edit="onEdit('wechat',$event)"/></li>
-                    <li>个人博客:<Eventable :value="contact.Blog" @edit="onEdit('Blog',$event)"/></li>
+                    <li>邮箱:<Eventable :mode="mode" :value="contact.email" @edit="onEdit('email',$event)"/></li>
+                    <li>QQ:<Eventable :mode="mode" :value="contact.qq" @edit="onEdit('qq',$event)"/></li>
+                    <li>Github:<Eventable :mode="mode"  :value="contact.github" @edit="onEdit('github',$event)"/></li>
+                    <li>Wechat:<Eventable :mode="mode" :value="contact.wechat" @edit="onEdit('wechat',$event)"/></li>
+                    <li>个人博客:<Eventable :mode="mode" :value="contact.Blog" @edit="onEdit('Blog',$event)"/></li>
                 </ul>
             </div>
         </div>
@@ -32,7 +32,7 @@
 import Eventable from "./Eventable";
 export default {
   name: "Resume_comments",
-  props:['contact'],
+  props:['contact',"mode"],
   data() {
     return {
       messages: {
@@ -74,10 +74,25 @@ export default {
 
 
 <style lang="scss" scoped>
+@media print{
+  .comment_content{
+    width: 700px;
+  }
+  .network{
+    margin-left: 80px;
+  }
+  h1{
+    width: 700px;
+    display: block;
+    text-align: center;
+    margin: -30px 0 30px 0;
+  }
+}
 .resume_comments {
   width: 960px;
   margin: 0 auto;
   h1 {
+
     text-align: center;
   }
   .comment_content {

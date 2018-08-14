@@ -1,21 +1,21 @@
 <template>
     <div class="app_content">
-      <silebar :resume="resume"/>
+      <silebar :resume="resume" @click-share="hiedeShare" v-if="mode === 'edit'"/>
       <div class="resume">
         <nav class="navigation">
            <div class="logo">
-               <h3><Eventable :value="resume.logo" @edit="onEdit('logo',$event)"/></h3>
+               <h3><Eventable :mode="mode" :value="resume.logo" @edit="onEdit('logo',$event)"/></h3>
            </div>
            <ul class="topbar clearfix">
-               <li>关于</li>
-               <li>技能</li>
-               <li>作品</li>
-               <li>博客</li>
-               <li>联系</li>
+               <li><a href="#about">关于</a></li>
+              <li><a href="#skills">技能</a></li>
+              <li><a href="#works">作品</a></li>
+              <li><a href="#comments">博客</a></li>
+              <li><a href="#comments">联系</a></li>
            </ul>
         </nav>
         <div class="IntroContet">
-          <h1>关于我</h1>
+          <h1 id="about">关于我</h1>
           <div class="Introduction">
             <div class="IntroWraper">
                 <div class="wraperImge">
@@ -28,26 +28,28 @@
                 <div class="Profile clearfix">
                     <dl>
                         <dt>姓名 :</dt>
-                        <dd><Eventable :value="resume.name" @edit="onEdit('name',$event)"/></dd>
+                        <dd><Eventable :mode="mode" :value="resume.name" @edit="onEdit('name',$event)"/></dd>
                         <dt>年龄 :</dt>
-                        <dd><Eventable :value="resume.age" @edit="onEdit('age',$event)"/></dd>
+                        <dd><Eventable :mode="mode" :value="resume.age" @edit="onEdit('age',$event)"/></dd>
                         <dt>学历 :</dt>
-                        <dd><Eventable :value="resume.Education" @edit="onEdit('Education',$event)"/></dd>
+                        <dd><Eventable :mode="mode" :value="resume.Education" @edit="onEdit('Education',$event)"/></dd>
                         <dt>所在城市 :</dt>
-                        <dd><Eventable :value="resume.city" @edit="onEdit('city',$event)"/></dd>
+                        <dd><Eventable :mode="mode" :value="resume.city" @edit="onEdit('city',$event)"/></dd>
                         <dt>爱好 :</dt>
-                        <dd><Eventable :value="resume.Hobby" @edit="onEdit('Hobby',$event)"/></dd>
+                        <dd><Eventable :mode="mode" :value="resume.Hobby" @edit="onEdit('Hobby',$event)"/></dd>
                         <dt>应聘职位 :</dt>
-                        <dd><Eventable :value="resume.dream" @edit="onEdit('dream',$event)"/></dd>
+                        <dd><Eventable :mode="mode" :value="resume.dream" @edit="onEdit('dream',$event)"/></dd>
                     </dl>
                 </div>
             </address>
           </div>
+          <el-button class="showPreview" type="danger" @click="exitPreview" v-show="showPreview" size="small">退出预览</el-button>
         </div>
-        <Skills :abilitys="resume" :slider="resume.skills" :filling="resume.values"/>
-        <Works :information="resume"/>
-        <Comments :contact="resume.information"/>
+        <Skills id="skills" :mode="mode" :abilitys="resume" :slider="resume.skills" :filling="resume.values"/>
+        <Works id="works" :mode="mode" :information="resume"/>
+        <Comments id="comments" :mode="mode" :contact="resume.information"/>
       </div>
+      <share @close="showShares" v-show="showShare" :shareLink="shareLink"/>
     </div>
 </template>
 
@@ -57,6 +59,7 @@ import Eventable from "./Eventable";
 import Skills from "./Skills";
 import Works from "./Works";
 import Comments from "./Comments";
+import share from "./share";
 
 export default {
   name: "Resume",
@@ -65,7 +68,8 @@ export default {
     Skills,
     Works,
     Comments,
-    Silebar
+    Silebar,
+    share
   },
   data() {
     return {
@@ -73,6 +77,8 @@ export default {
       showInput: false,
       showImage: false,
       showIcon: true,
+      showShare: false,
+      showPreview: false,
       currentUser: {
         objectId: undefined,
         email: ""
@@ -82,7 +88,7 @@ export default {
       },
       previewResume: {},
       resume: {
-        name: "刘文超",
+        name: "xxx",
         jobTitle: "前端开发工程师",
         age: 22,
         Education: "xxxx",
@@ -125,7 +131,7 @@ export default {
           email: "79334424@qq.com",
           qq: 79334424,
           github: "www.github.fallen158",
-          wechat: 13717022872,
+          wechat: 123456789,
           Blog: "myBlog"
         },
         skills: {
@@ -177,7 +183,9 @@ export default {
           }
         ],
         message: "1"
-      }
+      },
+      shareLink: "不知道",
+      mode: "edit"
     };
   },
   methods: {
@@ -199,24 +207,64 @@ export default {
         document.querySelector(".fileSelect").click();
         this.showIcon = false;
       }
+    },
+    getResume(user) {
+      var query = new AV.Query("User");
+      return query.get(user.objectId).then(
+        user => {
+          let resume = user.toJSON().resume;
+          return resume;
+        },
+        function(error) {}
+      );
+    },
+    hiedeShare() {
+      this.showShare = true;
+    },
+    showShares() {
+      this.showShare = false;
+    },
+    exitPreview() {
+      this.mode = "edit";
+      this.showPreview = false;
+      this.shareLink = location.origin + location.pathname;
+      location.href = this.shareLink;
     }
   },
   beforeMount() {
+    //获取当前用户
     let currentUser = AV.User.current();
-    currentUser = currentUser.toJSON();
-    if (currentUser) {
-      this.hideLogin = false;
-      this.hideOut = true;
+    if (currentUser === null) {
+      return;
+    } else {
+      currentUser = currentUser.toJSON();
       this.currentUser.objectId = currentUser.objectId;
+      if (this.currentUser.objectId) {
+        this.getResume(this.currentUser).then(resume => {
+          this.resume = resume;
+          this.shareLink =
+            location.origin +
+            location.pathname +
+            "?user_id=" +
+            this.currentUser.objectId;
+        });
+      }
     }
-
-    var query = new AV.Query("User");
-    query.get(this.currentUser.objectId).then(user=>{
-      let resume = user.toJSON().resume
-      this.resume = resume
-      console.log(this.resume)
-
-    });
+  },
+  created() {
+    //获取预览用户
+    let search = location.search;
+    let regex = /user_id=([^&]+)/;
+    let metches = search.match(regex);
+    let userId;
+    if (metches) {
+      userId = metches[1];
+      this.mode = "preview";
+      this.getResume({ objectId: userId }).then(resume => {
+        this.previewResume = resume;
+        this.showPreview = true;
+      });
+    }
   }
 };
 </script>
@@ -248,6 +296,11 @@ export default {
   }
   h1 {
     text-align: center;
+  }
+  .showPreview {
+    position: absolute;
+    right: 20px;
+    bottom: 30px;
   }
   .Introduction {
     width: 800px;
@@ -292,7 +345,6 @@ export default {
           font-size: 16px;
           margin-top: 25px;
         }
-
         dl,
         dd {
           float: left;

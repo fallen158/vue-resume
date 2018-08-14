@@ -2,14 +2,14 @@
     <span class="eventable">
         <span v-if="!editing">{{value}}</span>
         <textarea v-show="editing" type="text" @input="triggerEdit"></textarea>
-        <button @click="editing= !editing">edit</button>
+        <button @click="editing= !editing" v-if="mode === 'edit' ">edit</button>
     </span>
 </template>
 
 <script>
 export default {
   name: "Eventable",
-  props: ["value"],
+  props: ["value","mode"],
   data() {
     return {
       editing: false
