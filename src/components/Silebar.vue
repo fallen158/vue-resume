@@ -80,7 +80,7 @@ export default {
 .silebar {
   border-right: 1px solid #999;
   width: 100px;
-  min-width: 112px;
+  min-width: 110px;
   display: flex;
   flex-direction: column;
   .uper {
