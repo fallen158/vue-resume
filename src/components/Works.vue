@@ -1,7 +1,7 @@
 <template>
     <div class="resume_works">
+      <h1>作品展示</h1>
         <div class="project">
-          <h1>作品展示</h1>
             <ul class="tab">
                 <li v-for="tab,index in information.projects" :class="{active:currenTtab === index}" @click="onTab(index)">
                    <Eventable :mode="mode" :value="tab.name" @edit="onEdit('projects['+index+'].name',$event)"/>
@@ -102,7 +102,7 @@ export default {
   padding-bottom: 100px;
   h1 {
     text-align: center;
-    margin: 40px 0 ;
+    margin: 40px 0;
   }
   .project {
     margin-top: 40px;
@@ -116,6 +116,7 @@ export default {
         transition: all 0.4s;
         padding: 10px 20px;
         border: 1px solid #fff;
+        margin-top: 20px;
         cursor: pointer;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -150,7 +151,7 @@ export default {
           margin-bottom: 20px;
         }
         .item_link {
-          color: #007bff;
+          color: #e6686a;
         }
         p {
           color: #4d4d4d;
@@ -159,7 +160,6 @@ export default {
           line-height: 1.4;
         }
       }
-
     }
   }
 }

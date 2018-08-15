@@ -1,11 +1,12 @@
 <template>
     <div class="app_content">
-      <silebar :resume="resume" @click-share="hiedeShare" v-if="mode === 'edit'"/>
+      <silebar :resume="resume" @click-share="hiedeShare" v-if="mode === 'edit'" @click-skins="hideSkins"/>
       <div class="resume">
         <nav class="navigation">
-           <div class="logo">
-               <h3><Eventable :mode="mode" :value="resume.logo" @edit="onEdit('logo',$event)"/></h3>
-           </div>
+             <div class="tobNavBar">
+               <div class="logo">
+               <Eventable :mode="mode" :value="resume.logo" @edit="onEdit('logo',$event)"/>
+            </div>
            <ul class="topbar clearfix">
                <li><a href="#about">关于</a></li>
               <li><a href="#skills">技能</a></li>
@@ -13,33 +14,47 @@
               <li><a href="#comments">博客</a></li>
               <li><a href="#comments">联系</a></li>
            </ul>
+             </div>
+           <div class="banner">
+             <div class="banner__mask"></div>
+           </div>
         </nav>
         <div class="IntroContet">
-          <h1 id="about">关于我</h1>
           <div class="Introduction">
             <div class="IntroWraper">
                 <div class="wraperImge">
                     <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput" class="fileSelect">
                     <img :src="resume.userImg" id="img_input" v-show="showImage">
                     <i class="el-icon-plus avatar-uploader-icon" @click="uploadImg" v-show="showIcon"></i>
+                    <div class="exitImg" v-show="exitImg" @click="showImg">x</div>
                 </div>
             </div>
             <address class="IntroMessage">
-                <div class="Profile clearfix">
-                    <dl>
-                        <dt>姓名 :</dt>
-                        <dd><Eventable :mode="mode" :value="resume.name" @edit="onEdit('name',$event)"/></dd>
-                        <dt>年龄 :</dt>
-                        <dd><Eventable :mode="mode" :value="resume.age" @edit="onEdit('age',$event)"/></dd>
-                        <dt>学历 :</dt>
-                        <dd><Eventable :mode="mode" :value="resume.Education" @edit="onEdit('Education',$event)"/></dd>
-                        <dt>所在城市 :</dt>
-                        <dd><Eventable :mode="mode" :value="resume.city" @edit="onEdit('city',$event)"/></dd>
-                        <dt>爱好 :</dt>
-                        <dd><Eventable :mode="mode" :value="resume.Hobby" @edit="onEdit('Hobby',$event)"/></dd>
-                        <dt>应聘职位 :</dt>
-                        <dd><Eventable :mode="mode" :value="resume.dream" @edit="onEdit('dream',$event)"/></dd>
-                    </dl>
+                <div class="Profile">
+                  <div class="row">
+                    <span class="row_center">姓名 :</span>
+                    <Eventable :mode="mode" :value="resume.name" @edit="onEdit('name',$event)"/>
+                  </div>
+                  <div class="row">
+                    <span class="row_center">年龄 :</span>
+                    <Eventable :mode="mode" :value="resume.age" @edit="onEdit('age',$event)"/>
+                  </div>
+                  <div class="row">
+                    <span class="row_center">学历 :</span>
+                    <Eventable :mode="mode" :value="resume.Education" @edit="onEdit('Education',$event)"/>
+                  </div>
+                  <div class="row">
+                    <span class="row_center">城市 :</span>
+                    <Eventable :mode="mode" :value="resume.city" @edit="onEdit('city',$event)"/>
+                  </div>
+                  <div class="row">
+                    <span class="row_center">爱好 :</span>
+                    <Eventable :mode="mode" :value="resume.Hobby" @edit="onEdit('Hobby',$event)"/>
+                  </div>
+                  <div class="row">
+                    <span class="row_center">职位 :</span>
+                    <Eventable :mode="mode" :value="resume.dream" @edit="onEdit('dream',$event)"/>
+                  </div>
                 </div>
             </address>
           </div>
@@ -48,8 +63,10 @@
         <Skills id="skills" :mode="mode" :abilitys="resume" :slider="resume.skills" :filling="resume.values"/>
         <Works id="works" :mode="mode" :information="resume"/>
         <Comments id="comments" :mode="mode" :contact="resume.information"/>
+        <Footer :resume="resume" :mode="mode"/>
       </div>
-      <share @close="showShares" v-show="showShare" :shareLink="shareLink"/>
+      <Share @close="showShares" v-show="showShare" :shareLink="shareLink"/>
+      <Skins v-show="showSkin"  @close="showSkins"/>
     </div>
 </template>
 
@@ -59,7 +76,9 @@ import Eventable from "./Eventable";
 import Skills from "./Skills";
 import Works from "./Works";
 import Comments from "./Comments";
-import share from "./share";
+import Share from "./share";
+import Skins from "./Skins";
+import Footer from "./Footer";
 
 export default {
   name: "Resume",
@@ -69,16 +88,20 @@ export default {
     Works,
     Comments,
     Silebar,
-    share
+    Share,
+    Skins,
+    Footer
   },
   data() {
     return {
       editingName: false,
       showInput: false,
-      showImage: false,
-      showIcon: true,
+      showImage: true,
+      exitImg: true,
+      showIcon: false,
       showShare: false,
       showPreview: false,
+      showSkin: false,
       currentUser: {
         objectId: undefined,
         email: ""
@@ -96,39 +119,39 @@ export default {
         Hobby: "xxx",
         dream: "前端工程师",
         logo: "resume",
-        userImg: "",
+        userImg: "http://pa3otstvm.bkt.clouddn.com/18-8-15/59275695.jpg",
         projects: [
           {
             name: "在线简历编辑",
-            description: "项目简介",
+            description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
             workImage: ""
           },
           {
             name: "QQ音乐",
-            description: "项目简介",
+            description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
             workImage: ""
           },
           {
             name: "cnode社区",
-            description: "项目简介",
+            description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
             workImage: ""
           },
           {
             name: "在线便利贴",
-            description: "项目简介",
+            description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
             workImage: ""
           }
         ],
         information: {
-          email: "79334424@qq.com",
+          email: "email",
           qq: 79334424,
           github: "www.github.fallen158",
           wechat: 123456789,
@@ -152,34 +175,22 @@ export default {
         },
         summary: [
           {
-            name: "HTML5 & CSS3",
-            description: "掌握HTML5 & CSS3技能描述1",
-            message: "掌握HTML5 & CSS3技能描述2"
+            message: "掌握HTML5 & CSS3技能描述"
           },
           {
-            name: "ECMAScript5,6,7",
-            description: "掌握 ECMAScript5,6,7 技能描述1",
-            message: "掌握 ECMAScript5,6,7 技能描述2"
+            message: "掌握 ECMAScript5,6,7 技能描述"
           },
           {
-            name: "Vue",
-            description: "掌握 Vue 技能描述1",
-            message: "掌握 Vue 技能描述2"
+            message: "掌握 Vue 技能描述"
           },
           {
-            name: "React",
-            description: "掌握 React 技能描述1",
-            message: "掌握 React 技能描述2"
+            message: "掌握 React 技能描述"
           },
           {
-            name: "Node.JS",
-            description: "掌握 Node.js 技能描述1",
-            message: "掌握 Node.js 技能描述2"
+            message: "掌握 Node.js 技能描述"
           },
           {
-            name: "python",
-            description: "掌握 Python 技能描述1",
-            message: "掌握 Python 技能描述2"
+            message: "掌握 Python 技能描述"
           }
         ],
         message: "1"
@@ -200,7 +211,13 @@ export default {
         this.resume.userImg = e.target.result;
         this.showInput = false;
         this.showImage = true;
+        this.exitImg = true;
       };
+    },
+    showImg() {
+      this.resume.userImg = "";
+      this.showIcon = true;
+      this.showImage = false;
     },
     uploadImg() {
       if (!this.showInput) {
@@ -223,6 +240,12 @@ export default {
     },
     showShares() {
       this.showShare = false;
+    },
+    hideSkins() {
+      this.showSkin = true;
+    },
+    showSkins() {
+      this.showSkin = false;
     },
     exitPreview() {
       this.mode = "edit";
@@ -280,22 +303,29 @@ export default {
   height: 100vh;
   overflow: auto;
   .navigation {
-    display: flex;
-    justify-content: space-between;
-    padding: 25px;
-    color: #409eff;
-    background-color: transparent;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    .topbar {
-      li {
-        float: left;
-        margin-left: 20px;
+    .tobNavBar {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 20px;
+      color: #e6686a;
+      font-size: 24px;
+      .topbar {
+        li {
+          float: left;
+          margin-left: 30px;
+          font-size: 18px;
+        }
       }
     }
-  }
-  h1 {
-    text-align: center;
+    .banner {
+      height: 455px;
+      background: url("../assets/make.png") center center;
+      background-size: cover;
+      .banner__mask {
+        height: 455px;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+    }
   }
   .showPreview {
     position: absolute;
@@ -306,13 +336,14 @@ export default {
     width: 800px;
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: -260px auto 150px auto;
+    background: white;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
     .IntroWraper {
-      padding: 30px;
+      padding: 40px;
       .wraperImge {
-        width: 300px;
-        height: 300px;
+        width: 320px;
+        height: 320px;
         margin-right: 50px;
         background-color: #fbfdff;
         border: 1px dashed #c0ccda;
@@ -320,7 +351,7 @@ export default {
         position: relative;
         img {
           width: 100%;
-          height: 300px;
+          height: 320px;
           z-index: 1;
         }
         .avatar-uploader-icon {
@@ -330,27 +361,30 @@ export default {
           top: 40%;
           left: 42%;
         }
+        .exitImg {
+          font-size: 20px;
+          position: absolute;
+          right: 5px;
+          top: 0;
+          color: white;
+          z-index: 2;
+        }
       }
     }
     .IntroMessage {
       flex: 1;
       padding: 20px;
       .Profile {
-        margin-top: -10px;
-        dl,
-        dt {
-          float: left;
-          width: 30%;
-          color: grey;
-          font-size: 16px;
+        margin-top: 40px;
+        .row {
           margin-top: 25px;
-        }
-        dl,
-        dd {
-          float: left;
-          width: 70%;
-          color: black;
-          margin-top: 25px;
+          .row_center {
+            color: grey;
+            font-size: 16px;
+            display: inline-block;
+            margin-right: 50px;
+          }
+          font-size: 20px;
         }
       }
     }

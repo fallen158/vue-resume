@@ -4,7 +4,7 @@
         <div class="comment_content">
             <div class="messages">
                 <h3>FELL FREE TO WRITE US</h3>
-                <form @submit.prevent="onMessage">
+                <form @submit.prevent="onMessage" class="buttonStlye">
                     <label>
                         <input type="text" placeholder="E-mail" v-model="messages.Email">
                         <input type="text" placeholder="Phone" v-model="messages.Phone">
@@ -131,8 +131,9 @@ export default {
         button {
           width: 330px;
           height: 30px;
-          background: #409eff;
+          background: #e6686a;
           color: white;
+          border: 1px solid #e6686a
         }
       }
     }

@@ -6,18 +6,22 @@
 
 <script>
 export default {
-  name: 'App',
-}
-
-
+  name: "App"
+};
 </script>
 
 <style lang="scss">
-.app_content{
+.app_content {
   height: 100vh;
   display: flex;
-  .resume{
-    flex:1;
+  .resume {
+    flex: 1;
   }
+}
+.el-slider__bar {
+  background: #e6686a;
+}
+.el-slider__button {
+  border: 2px solid #e6686a;
 }
 </style>

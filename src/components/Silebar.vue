@@ -8,9 +8,9 @@
             <router-link to="/singup">
               <button v-show="hideLogin">注册账户</button>
             </router-link>
-              <button @click="showLink">分享简历</button>
+              <button @click="$emit('click-share')">分享简历</button>
             <button @click="showPrint">打印简历</button>
-            <button>风格设置</button>
+            <button @click="$emit('click-skins')">风格设置</button>
             <router-link to="/automtic">
               <button>自动简历</button>
             </router-link>
@@ -58,9 +58,7 @@ export default {
     showPrint() {
       window.print();
     },
-    showLink() {
-      this.$emit("click-share");
-    }
+
   },
   beforeMount() {
     let currentUser = AV.User.current();
@@ -80,7 +78,7 @@ export default {
 .silebar {
   border-right: 1px solid #999;
   width: 100px;
-  min-width: 110px;
+  min-width: 111px;
   display: flex;
   flex-direction: column;
   .uper {

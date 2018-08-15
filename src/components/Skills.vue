@@ -5,7 +5,7 @@
             <ol class="xxx">
                 <li>
                   <Eventable :mode="mode" :value="slider.name"  @edit="onEdit('name',$event)"/>
-                  <el-slider tooltip-class="x" v-model="filling.value"></el-slider>
+                  <el-slider id="xxx"  v-model="filling.value"></el-slider>
                 </li>
                 <li>
                   <Eventable :mode="mode" :value="slider.name2"  @edit="onEdit('name2',$event)"/>
@@ -31,12 +31,6 @@
         </div>
         <div class="skill_message">
             <ul v-for="item,index in abilitys.summary" :key="item.id">
-                <h3>
-                    <Eventable :mode="mode" :value="item.name" @edit="onEdit('summary['+index+'].name',$event)"/>
-                </h3>
-                <li>
-                    <Eventable :mode="mode" :value="item.description" @edit="onEdit('summary['+index+'].description',$event)"/>
-                </li>
                 <li>
                    <Eventable :mode="mode" :value="item.message" @edit="onEdit('summary['+index+'].message',$event)"/>
                 </li>
@@ -83,9 +77,10 @@ export default {
 <style lang="scss" scoped>
 .resume_skill {
   width: 960px;
-  margin: 50px auto;
+  margin: 0px auto;
   h1 {
     text-align: center;
+    margin-top: 80px;
   }
   .skill_content {
     width: 100%;
@@ -97,6 +92,7 @@ export default {
       flex-wrap: wrap;
       justify-content: center;
       padding: 20px;
+      font-size: 16px;
       li {
         width: 44%;
         margin: 10px;
@@ -112,11 +108,8 @@ export default {
   }
   .skill_message {
     ul {
-      width: 50%;
       margin-top: 10px;
-      h3 {
-        font-weight: 500;
-      }
+      font-size: 16px;
       li {
         list-style: disc;
         margin: 10px 30px;
@@ -134,6 +127,5 @@ export default {
   .xxx{
     width: 700px;
   }
-
 }
 </style>
