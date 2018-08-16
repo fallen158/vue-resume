@@ -3,18 +3,18 @@
       <silebar :resume="resume" @click-share="hiedeShare" v-if="mode === 'edit'" @click-skins="hideSkins"/>
       <div class="resume">
         <nav class="navigation">
-             <div class="tobNavBar">
-               <div class="logo">
-               <Eventable :mode="mode" :value="resume.logo" @edit="onEdit('logo',$event)"/>
-            </div>
-           <ul class="topbar clearfix">
-               <li><a href="#about">关于</a></li>
-              <li><a href="#skills">技能</a></li>
-              <li><a href="#works">作品</a></li>
-              <li><a href="#comments">博客</a></li>
-              <li><a href="#comments">联系</a></li>
-           </ul>
-             </div>
+            <div class="tobNavBar">
+              <div class="logo">
+              <Eventable :mode="mode" :value="resume.logo" @edit="onEdit('logo',$event)"/>
+              </div>
+              <ul class="topbar clearfix">
+                <li>关于</li>
+                <li>技能</li>
+                <li>作品</li>
+                <li>博客</li>
+                <li>联系</li>
+              </ul>
+           </div>
            <div class="banner">
              <div class="banner__mask"></div>
            </div>
@@ -215,7 +215,7 @@ export default {
       };
     },
     showImg() {
-      this.exitImg = false
+      this.exitImg = false;
       this.resume.userImg = "";
       this.showIcon = true;
       this.showImage = false;
@@ -253,7 +253,17 @@ export default {
       this.showPreview = false;
       this.shareLink = location.origin + location.pathname;
       location.href = this.shareLink;
+    },
+    handleScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      console.log(scrollTop);
     }
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
   },
   beforeMount() {
     //获取当前用户
@@ -305,25 +315,32 @@ export default {
   overflow: auto;
   .navigation {
     .tobNavBar {
+      position: fixed;
       display: flex;
       justify-content: space-between;
+      width: 100%;
       padding: 18px 20px;
       color: #e6686a;
       font-size: 24px;
+      height: 25px;
+      background: white;
+      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+      z-index: 999;
       .topbar {
+        margin-right: 130px;
         li {
           float: left;
-          margin-left: 30px;
+          margin-right: 40px;
           font-size: 18px;
         }
       }
     }
     .banner {
-      height: 455px;
+      height: 515px;
       background: url("../assets/make.png") center center;
       background-size: cover;
       .banner__mask {
-        height: 455px;
+        height: 515px;
         background-color: rgba(0, 0, 0, 0.6);
       }
     }
