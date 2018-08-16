@@ -1,6 +1,6 @@
 <template>
     <div class="automtic">
-        <h1>自动简历模块</h1>
+        <h1>稍等一段时间</h1>
     </div>
 </template>
 

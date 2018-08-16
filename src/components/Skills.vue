@@ -4,27 +4,27 @@
         <div class="skill_content">
             <ol class="xxx">
                 <li>
-                  <Eventable :mode="mode" :value="slider.name"  @edit="onEdit('name',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name"  @edit="onName('name',$event)"/>
                   <el-slider id="xxx"  v-model="filling.value"></el-slider>
                 </li>
                 <li>
-                  <Eventable :mode="mode" :value="slider.name2"  @edit="onEdit('name2',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name2"  @edit="onName('name2',$event)"/>
                   <el-slider v-model="filling.value2"></el-slider>
                 </li>
                  <li>
-                  <Eventable :mode="mode" :value="slider.name3"  @edit="onEdit('name3',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name3"  @edit="onName('name3',$event)"/>
                   <el-slider v-model="filling.value3"></el-slider>
                 </li>
                 <li>
-                  <Eventable :mode="mode" :value="slider.name4"  @edit="onEdit('name4',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name4"  @edit="onName('name4',$event)"/>
                   <el-slider v-model="filling.value4"></el-slider>
                 </li>
                  <li>
-                  <Eventable :mode="mode" :value="slider.name5"  @edit="onEdit('name5',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name5"  @edit="onName('name5',$event)"/>
                   <el-slider v-model="filling.value5"></el-slider>
                 </li>
                 <li>
-                  <Eventable :mode="mode" :value="slider.name6"  @edit="onEdit('name6',$event)"/>
+                  <Eventable :mode="mode" :value="slider.name6"  @edit="onName('name6',$event)"/>
                   <el-slider v-model="filling.value6"></el-slider>
                 </li>
             </ol>
@@ -54,11 +54,11 @@ export default {
   },
   methods: {
     onEdit(key, value) {
-      this.slider[key] = value
       let reg = /\[(\d+)\]/g;
       key = key.replace(reg, (match, number) => {
         return "." + number;
       });
+      console.log(key,value)
       let keys = key.split(".");
       let result = this.abilitys;
       for (let i = 0; i < keys.length; i++) {
@@ -68,6 +68,9 @@ export default {
           result = result[keys[i]];
         }
       }
+    },
+    onName(key,value){
+      this.slider[key] = value
     }
   }
 };

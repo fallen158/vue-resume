@@ -26,7 +26,7 @@
                     <input type="file" name="img" accept="image/*" @change="onImage" v-show="showInput" class="fileSelect">
                     <img :src="resume.userImg" id="img_input" v-show="showImage">
                     <i class="el-icon-plus avatar-uploader-icon" @click="uploadImg" v-show="showIcon"></i>
-                    <div class="exitImg" v-show="exitImg" @click="showImg">x</div>
+                    <div class="exitImg" :mode="mode" v-show="exitImg" @click="showImg" v-if="mode === 'edit'">x</div>
                 </div>
             </div>
             <address class="IntroMessage">
@@ -119,35 +119,35 @@ export default {
         Hobby: "xxx",
         dream: "前端工程师",
         logo: "resume",
-        userImg: "http://pa3otstvm.bkt.clouddn.com/18-8-15/59275695.jpg",
+        userImg: "http://pa3otstvm.bkt.clouddn.com/18-8-16/76373380.jpg",
         projects: [
           {
-            name: "在线简历编辑",
+            name: "项目名称1",
             description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
-            workImage: ""
+            workImage: "http://pa3otstvm.bkt.clouddn.com/18-8-16/73752957.jpg"
           },
           {
-            name: "QQ音乐",
+            name: "项目名称2",
             description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
-            workImage: ""
+            workImage: "http://pa3otstvm.bkt.clouddn.com/18-8-16/36287342.jpg"
           },
           {
-            name: "cnode社区",
+            name: "项目名称3",
             description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
-            workImage: ""
+            workImage: "http://pa3otstvm.bkt.clouddn.com/18-8-16/9999178.jpg"
           },
           {
-            name: "在线便利贴",
+            name: "项目名称4",
             description: "项目的介绍，用到的技术和遇到的困难",
             link: "htttps://",
             url: "https://",
-            workImage: ""
+            workImage: "http://pa3otstvm.bkt.clouddn.com/18-8-16/70127004.jpg"
           }
         ],
         information: {
@@ -215,6 +215,7 @@ export default {
       };
     },
     showImg() {
+      this.exitImg = false
       this.resume.userImg = "";
       this.showIcon = true;
       this.showImage = false;
@@ -342,7 +343,7 @@ export default {
     .IntroWraper {
       padding: 40px;
       .wraperImge {
-        width: 320px;
+        width: 300px;
         height: 320px;
         margin-right: 50px;
         background-color: #fbfdff;
@@ -364,9 +365,9 @@ export default {
         .exitImg {
           font-size: 20px;
           position: absolute;
-          right: 5px;
+          right: 8px;
           top: 0;
-          color: white;
+          color: black;
           z-index: 2;
         }
       }
@@ -375,7 +376,7 @@ export default {
       flex: 1;
       padding: 20px;
       .Profile {
-        margin-top: 40px;
+        margin-top: 50px;
         .row {
           margin-top: 25px;
           .row_center {

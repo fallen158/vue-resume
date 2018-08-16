@@ -42,6 +42,7 @@ export default {
       });
     },
     saveResume() {
+      alert('保存图片会有点慢，需要等待一会')
       let currentUser = AV.User.current();
       if (currentUser === null) {
         alert("请先登录");
@@ -50,7 +51,7 @@ export default {
         let { objectId } = AV.User.current().toJSON();
         var todo = AV.Object.createWithoutData("User", objectId);
         todo.set("resume", this.resume);
-        todo.save().then(() => {
+        todo.save().then((e) => {
           alert("保存成功");
         });
       }

@@ -39,10 +39,10 @@ import Eventable from "./Eventable";
 import EventImg from "./EventImg";
 export default {
   name: "Works",
-  props: ["information","mode"],
+  props: ["information", "mode"],
   data() {
     return {
-      currenTtab: 0,
+      currenTtab: 0
     };
   },
   methods: {
@@ -64,17 +64,17 @@ export default {
       this.information.projects.pop();
     },
     onEdit(key, value) {
-      let reg = /\[(\d+)\]/g;
-      key = key.replace(reg, (match, number) => {
+      let reg = /\[(\d+)]/g;
+      key = key.replace(reg, (mutch, number) => {
         return "." + number;
       });
       let keys = key.split(".");
-      let result = this.information;
+      let result = this.information; //this.resume
       for (let i = 0; i < keys.length; i++) {
         if (i === keys.length - 1) {
           result[keys[i]] = value;
-        } else {
-          result = result[keys[i]];
+        }else{
+          result = result[keys[i]]
         }
       }
     }
@@ -88,11 +88,11 @@ export default {
 
 
 <style lang="scss" scoped>
-@media print{
-  h1{
+@media print {
+  h1 {
     text-align: center;
   }
-  .project{
+  .project {
     width: 700px;
   }
 }
