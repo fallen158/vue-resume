@@ -293,10 +293,14 @@ export default {
     let userId;
     if (metches) {
       userId = metches[1];
+      console.log(userId);
       this.mode = "preview";
-      this.getResume({ objectId: userId }).then(resume => {
-        this.previewResume = resume;
+      var query = new AV.Query("User");
+      query.get(userId).then(user => {
+        let resume = user.toJSON().resume;
+        this.resume = resume;
         this.showPreview = true;
+        return;
       });
     }
   }
@@ -324,7 +328,7 @@ export default {
       font-size: 24px;
       height: 25px;
       background: white;
-      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
       z-index: 999;
       .topbar {
         margin-right: 130px;
