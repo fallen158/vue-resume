@@ -114,7 +114,7 @@ let md = marked(
     "谢谢观看。"
 );
 
-function writeCode(data, fn,time) {
+function writeCode(data, fn, time) {
   let n = 0;
   let id = setInterval(() => {
     n += 1;
@@ -129,7 +129,7 @@ function writeCode(data, fn,time) {
   }, time);
 }
 
-function writeMarkdown(markdown,time) {
+function writeMarkdown(markdown, time) {
   let n = 0;
   let div = setInterval(() => {
     n += 1;
@@ -143,13 +143,18 @@ function writeMarkdown(markdown,time) {
 
 export default {
   created() {
-    writeCode(result, () => {
-      writeMarkdown(md,50);
-    },20);
+    writeCode(
+      result,
+      () => {
+        writeMarkdown(md, 50);
+      },
+      20
+    );
   },
   methods: {
     exitPage() {
-      this.$router.push('/')
+      this.$router.push("/");
+      window.location.reload()
     }
   }
 };
