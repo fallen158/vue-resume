@@ -195,7 +195,7 @@ export default {
         ],
         message: "1"
       },
-      shareLink: "不知道",
+      shareLink: "登录后才能查看您的分享链接",
       mode: "edit"
     };
   },
